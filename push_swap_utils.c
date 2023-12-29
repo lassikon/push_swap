@@ -6,11 +6,36 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 15:54:59 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/29 20:09:42 by lkonttin         ###   ########.fr       */
+/*   Updated: 2023/12/29 22:39:11 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	check_validity(t_stacks *stacks)
+{
+	int	i;
+	int	last;
+	int	size;
+
+	size = stacks->max_elems;
+	while (size > 0)
+	{
+		i = size - 1;
+		last = stacks->a[i].value;
+		i--;
+		while (i >= 0)
+		{
+			if (stacks->a[i].value == last)
+			{
+				stacks->error = 1;
+				clean_exit(stacks);
+			}
+			i--;
+		}
+		size--;
+	}
+}
 
 void	print_stack(t_stacks *stacks)
 {
@@ -20,10 +45,10 @@ void	print_stack(t_stacks *stacks)
 	i = 0;
 	while (i < stacks->max_elems)
 	{
-		printf("a_stack[%d].rank: %d	value: %d\n", i, stacks->a[i].rank, stacks->a[i].value);
+		printf("a_stack.rank:	%d		value:	%d\n", stacks->a[i].rank, stacks->a[i].value);
 		i++;
 	}
-	printf("\n\n");
+	printf("\nmax_elems: %d\n\n", stacks->max_elems);
 	rank = 0;
 	while (rank < stacks->max_elems)
 	{
@@ -31,7 +56,7 @@ void	print_stack(t_stacks *stacks)
 		while(i < stacks->max_elems)
 		{
 			if (stacks->a[i].rank == rank)
-				printf("a_stack[%d].rank: %d	value: %d\n", i, stacks->a[i].rank, stacks->a[i].value);
+				printf("a_stack.rank:	%d		value:	%d\n", stacks->a[i].rank, stacks->a[i].value);
 			i++;
 		}
 		rank++;

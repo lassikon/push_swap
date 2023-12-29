@@ -6,58 +6,24 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 15:26:21 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/29 20:10:52 by lkonttin         ###   ########.fr       */
+/*   Updated: 2023/12/29 22:46:55 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	check_validity(t_stacks *stacks)
+void	clean_exit(t_stacks *stacks)
 {
-	int	i;
-	int	last;
-	int	size;
-
-	size = stacks->max_elems;
-	while (size > 0)
+	if (stacks->a)
+		free(stacks->a);
+	if (stacks->b)
+		free(stacks->b);
+	if (stacks->error)
 	{
-		i = size - 1;
-		last = stacks->a[i].value;
-		i--;
-		while (i >= 0)
-		{
-			if (stacks->a[i].value == last)
-			{
-				stacks->error = 1;
-				clean_exit(stacks);
-			}
-			i--;
-		}
-		size--;
+		print_out("Error");
+		exit(1);
 	}
-}
-
-void	create_stack(t_stacks *stacks, char **argv, int argc)
-{
-	int	i;
-
-	stacks->max_elems = argc - 1;
-	stacks->error = 0;
-	stacks->a = (t_elem *)malloc(sizeof(t_elem) * stacks->max_elems);
-	stacks->b = (t_elem *)malloc(sizeof(t_elem) * stacks->max_elems);
-	if (stacks->a == NULL || stacks->b == NULL)
-	{
-		stacks->error = 1;
-		clean_exit(stacks);
-	}
-	i = 1;
-	while (argv[i])
-	{
-		stacks->a[i - 1].value = ft_atoi(argv[i]);
-		stacks->a[i - 1].rank = -1;
-		i++;
-	}
-	check_validity(stacks);
+	exit(0);
 }
 
 void	rank_values(t_stacks *stacks)
@@ -85,26 +51,99 @@ void	rank_values(t_stacks *stacks)
 		rank++;
 	}
 }
-
-void	clean_exit(t_stacks *stacks)
+// Splits single input string for ft_atoi and checks for forbidden chars (necessary?)
+void	split_string(t_stacks *stacks, char *argv)
 {
-	if (stacks->a)
-		free(stacks->a);
-	if (stacks->b)
-		free(stacks->b);
-	if (stacks->error)
+	int	i;
+
+	i = 0;
+	while (*argv)
 	{
-		print_out("Error");
-		exit(1);
+		stacks->a[i].value = ft_atoi(argv);
+		while (*argv == '-' || (*argv >= '0' && *argv <= '9'))
+			argv++;
+		if (*argv != '-' && *argv != ' ' && (*argv < '0' && *argv > '9'))
+		{
+			stacks->error = 1;
+			clean_exit(stacks);
+		}
+		if (*argv == ' ')
+			argv++;
+		i++;
 	}
-	exit(0);
+}
+
+void	create_stack(t_stacks *stacks, int argc, char **argv)
+{
+	int	i;
+
+	i = 1;
+	if (argc == 2)
+		split_string(stacks, argv[1]);
+	while (argc != 2 && argv[i])
+	{
+		stacks->a[i - 1].value = ft_atoi(argv[i]);
+		stacks->a[i - 1].rank = -1;
+		i++;
+	}
+	check_validity(stacks);
+}
+// If input was a single string, counts the number of elements inside it
+void	count_elems(t_stacks *stacks, char *argv)
+{
+	int	count;
+	int	i;
+	int	in_word;
+
+	count = 0;
+	i = 0;
+	in_word = 0;
+	while (argv[i])
+	{
+		if (argv[i] == ' ')
+			in_word = 0;
+		else if (in_word == 0)
+		{
+			in_word = 1;
+			count++;
+		}
+		i++;
+	}
+	stacks->max_elems = count;
+}
+
+void	init_stack(t_stacks *stacks, int argc, char **argv)
+{
+	int	i;
+
+	if (argc == 1)
+		exit(0);
+	else if (argc == 2)
+		count_elems(stacks, argv[1]);
+	else
+		stacks->max_elems = argc - 1;
+	stacks->a = (t_elem *)malloc(sizeof(t_elem) * stacks->max_elems);
+	stacks->b = (t_elem *)malloc(sizeof(t_elem) * stacks->max_elems);
+	if (stacks->a == NULL || stacks->b == NULL)
+	{
+		stacks->error = 1;
+		clean_exit(stacks);
+	}
+	i = 0;
+	while(i < stacks->max_elems)
+	{
+		stacks->a[i].rank = -1;
+		i++;
+	}
+	stacks->error = 0;
 }
 
 int	main(int argc, char **argv)
 {
 	t_stacks	stacks;
 
-	create_stack(&stacks, argv, argc);
+	init_stack(&stacks, argc, argv);
+	create_stack(&stacks, argc, argv);
 	rank_values(&stacks);
 	sort_stack(&stacks);
 	print_stack(&stacks);
