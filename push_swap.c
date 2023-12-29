@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 15:26:21 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/29 14:36:38 by lkonttin         ###   ########.fr       */
+/*   Updated: 2023/12/29 14:58:57 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,22 @@ int	ft_atoi(const char *str)
 	}
 	return ((int)nbr * sign);
 }
-void	create_stack(t_elem **stack, char **argv)
+t_elem	**create_stack(t_elem **stack, char **argv, int size)
 {
+	t_elem	*a_stack;
+	t_elem	*b_stack;
 	int	i;
 
+	a_stack = (t_elem *)malloc(sizeof(t_elem) * size);
+	b_stack = (t_elem *)malloc(sizeof(t_elem) * size);
+	if (a_stack == NULL || b_stack == NULL)
+	{
+		if (a_stack)
+			free(a_stack);
+		if (b_stack)
+			free(b_stack);
+		exit (1);
+	}
 	i = 1;
 	while (argv[i])
 	{
@@ -94,16 +106,16 @@ void	print_stack(t_elem **stack, int size)
 {
 	int	i;
 	int	min_loc;
-	int	smallest;
+	int	min;
 	
 	i = 0;
 	min_loc = -1;
-	smallest = INT_MAX;
+	min = INT_MAX;
 	while(i < size)
 	{
-		if ((*stack)[i].value <= smallest && (*stack)[i].rank < 0)
+		if ((*stack)[i].value <= min && (*stack)[i].rank < 0)
 		{
-			smallest = (*stack)[i].value;
+			min = (*stack)[i].value;
 			min_loc = i;
 		}
 		i++;
@@ -115,19 +127,19 @@ void	rank_values(t_elem **stack, int size)
 {
 	int	i;
 	int	rank;
-	int	smallest;
+	int	min;
 	int	min_loc;
 
 	rank = 0;
 	while (rank < size)
 	{
-		smallest = INT_MAX;
+		min = INT_MAX;
 		i = 0;
 		while(i < size)
 		{
-			if ((*stack)[i].value <= smallest && (*stack)[i].rank < 0)
+			if ((*stack)[i].value <= min && (*stack)[i].rank < 0)
 			{
-				smallest = (*stack)[i].value;
+				min = (*stack)[i].value;
 				min_loc = i;
 			}
 			i++;
@@ -146,24 +158,13 @@ int	main(int argc, char **argv)
 {
 	t_elem	*a_stack;
 	t_elem	*b_stack;
-	int			size;
 
-	size = argc - 1;
-	a_stack = (t_elem *)malloc(sizeof(t_elem) * size);
-	b_stack = (t_elem *)malloc(sizeof(t_elem) * size);
-	if (a_stack == NULL || b_stack == NULL)
-	{
-		if (a_stack)
-			free(a_stack);
-		if (b_stack)
-			free(b_stack);
-		return (0);
-	}
-	create_stack(&a_stack, argv);
-	// create_stack(&b_stack, argv);
-	rank_values(&a_stack, size);
-	sort_stack(&a_stack, &b_stack, size);
-	print_stack(&a_stack, size);
+	argc = argc - 1;
+	a_stack = create_stack(&a_stack, argv, argc);
+	b_stack = create_stack(&b_stack, argv, argc);
+	rank_values(&a_stack, argc);
+	sort_stack(&a_stack, &b_stack, argc);
+	print_stack(&a_stack, argc);
 	free(a_stack);
 	free(b_stack);
 	return (0);
