@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 15:54:59 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/29 22:39:11 by lkonttin         ###   ########.fr       */
+/*   Updated: 2023/12/29 23:08:11 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ void	print_stack(t_stacks *stacks)
 		printf("a_stack.rank:	%d		value:	%d\n", stacks->a[i].rank, stacks->a[i].value);
 		i++;
 	}
-	printf("\nmax_elems: %d\n\n", stacks->max_elems);
+	printf("\na_elems: %d\n", stacks->a_elems);
+	printf("b_elems: %d\n", stacks->b_elems);
+	printf("max_elems: %d\n\n", stacks->max_elems);
 	rank = 0;
 	while (rank < stacks->max_elems)
 	{

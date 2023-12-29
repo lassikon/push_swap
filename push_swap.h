@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 11:18:33 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/29 22:32:48 by lkonttin         ###   ########.fr       */
+/*   Updated: 2023/12/29 23:03:49 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct	stacks
 	int		a_top;
 	int		b_top;
 	int		max_elems;
+	int		a_elems;
+	int		b_elems;
 	int		error;
 }	t_stacks;
 

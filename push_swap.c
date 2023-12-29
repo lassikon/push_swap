@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 15:26:21 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/29 22:46:55 by lkonttin         ###   ########.fr       */
+/*   Updated: 2023/12/29 23:10:57 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	rank_values(t_stacks *stacks)
 	}
 }
 // Splits single input string for ft_atoi and checks for forbidden chars (necessary?)
+// ATM SEGFAULTS IF INVALID CHARS INSIDE NUMBER
 void	split_string(t_stacks *stacks, char *argv)
 {
 	int	i;
@@ -86,28 +87,27 @@ void	create_stack(t_stacks *stacks, int argc, char **argv)
 		stacks->a[i - 1].rank = -1;
 		i++;
 	}
+	stacks->a_elems = stacks->max_elems;
 	check_validity(stacks);
 }
 // If input was a single string, counts the number of elements inside it
 void	count_elems(t_stacks *stacks, char *argv)
 {
 	int	count;
-	int	i;
 	int	in_word;
 
 	count = 0;
-	i = 0;
 	in_word = 0;
-	while (argv[i])
+	while (*argv)
 	{
-		if (argv[i] == ' ')
+		if (*argv == ' ')
 			in_word = 0;
 		else if (in_word == 0)
 		{
 			in_word = 1;
 			count++;
 		}
-		i++;
+		argv++;
 	}
 	stacks->max_elems = count;
 }
@@ -129,6 +129,7 @@ void	init_stack(t_stacks *stacks, int argc, char **argv)
 		stacks->error = 1;
 		clean_exit(stacks);
 	}
+	stacks->b_elems = 0;
 	i = 0;
 	while(i < stacks->max_elems)
 	{
