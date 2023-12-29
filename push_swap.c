@@ -6,68 +6,40 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 15:26:21 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/29 14:58:57 by lkonttin         ###   ########.fr       */
+/*   Updated: 2023/12/29 16:09:16 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	max_check(long nbr, long temp, int sign)
+int	invalid_stack(t_elem **stack, int size)
 {
-	if (nbr < temp)
-	{
-		if (sign > 0)
-			return (-1);
-		return (0);
-	}
-	return (1);
-}
-// Returns -1 if nbr goes over max long and was positive, or 0 if negative
+	int	i;
+	int	last;
 
-int	ft_atoi(const char *str)
-{
-	int		sign;
-	long	nbr;
-	long	previous;
-
-	sign = 1;
-	nbr = 0;
-	while (*str == ' ' || (*str >= 9 && *str <= 13))
-		str++;
-	if (*str == '-' || *str == '+')
+	while (size > 0)
 	{
-		if (*str == '-')
-			sign = sign * -1;
-		str++;
+		i = size - 1;
+		last = (*stack)[i].value;
+		i--;
+		while (i >= 0)
+		{
+			if ((*stack)[i].value == last)
+				return (1);
+			i--;
+		}
+		size--;
 	}
-	if (*str < '0' && *str > '9')
-		return (0);
-	while (*str >= '0' && *str <= '9')
-	{
-		previous = nbr;
-		nbr = nbr * 10 + *str - '0';
-		if (max_check(nbr, previous, sign) != 1)
-			return (max_check(nbr, previous, sign));
-		str++;
-	}
-	return ((int)nbr * sign);
+	return (0);
 }
-t_elem	**create_stack(t_elem **stack, char **argv, int size)
+
+int	create_stack(t_elem **stack, char **argv, int size)
 {
-	t_elem	*a_stack;
-	t_elem	*b_stack;
 	int	i;
 
-	a_stack = (t_elem *)malloc(sizeof(t_elem) * size);
-	b_stack = (t_elem *)malloc(sizeof(t_elem) * size);
-	if (a_stack == NULL || b_stack == NULL)
-	{
-		if (a_stack)
-			free(a_stack);
-		if (b_stack)
-			free(b_stack);
-		exit (1);
-	}
+	*stack = (t_elem *)malloc(sizeof(t_elem) * size);
+	if (*stack == NULL)
+		return (1);
 	i = 1;
 	while (argv[i])
 	{
@@ -75,53 +47,10 @@ t_elem	**create_stack(t_elem **stack, char **argv, int size)
 		(*stack)[i - 1].rank = -1;
 		i++;
 	}
+	if (invalid_stack(stack, size))
+		return (1);
+	return (0);
 }
-void	print_stack(t_elem **stack, int size)
-{
-	int	i;
-	int	rank;
-
-	i = 0;
-	while (i < size)
-	{
-		printf("a_stack[%d].rank: %d	value: %d\n", i, (*stack)[i].rank, (*stack)[i].value);
-		i++;
-	}
-	printf("\n\n");
-	rank = 0;
-	while (rank < size)
-	{
-		i = 0;
-		while(i < size)
-		{
-			if ((*stack)[i].rank == rank)
-				printf("a_stack[%d].rank: %d	value: %d\n", i, (*stack)[i].rank, (*stack)[i].value);
-			i++;
-		}
-		rank++;
-	}
-}
-
-/* int	find_smallest(t_elem **stack, int size)
-{
-	int	i;
-	int	min_loc;
-	int	min;
-	
-	i = 0;
-	min_loc = -1;
-	min = INT_MAX;
-	while(i < size)
-	{
-		if ((*stack)[i].value <= min && (*stack)[i].rank < 0)
-		{
-			min = (*stack)[i].value;
-			min_loc = i;
-		}
-		i++;
-	}
-	return (min_loc);
-} */
 
 void	rank_values(t_elem **stack, int size)
 {
@@ -149,23 +78,34 @@ void	rank_values(t_elem **stack, int size)
 	}
 }
 
-void	sort_stack(t_elem **a_stack, t_elem **b_stack, int size)
+void	clean_exit(t_elem **a_stack, t_elem **b_stack, int err)
 {
-	
+	if (*a_stack)
+		free(*a_stack);
+	if (*b_stack)
+		free(*b_stack);
+	if (err)
+	{
+		printf("Error\n");
+		exit(1);
+	}
+	exit(0);
 }
 
 int	main(int argc, char **argv)
 {
 	t_elem	*a_stack;
 	t_elem	*b_stack;
+	int		err;
 
+	err = 0;
 	argc = argc - 1;
-	a_stack = create_stack(&a_stack, argv, argc);
-	b_stack = create_stack(&b_stack, argv, argc);
+	err = create_stack(&a_stack, argv, argc);
+	err = create_stack(&b_stack, argv, argc);
+	if (err)
+		clean_exit(&a_stack, &b_stack, 1);
 	rank_values(&a_stack, argc);
 	sort_stack(&a_stack, &b_stack, argc);
-	print_stack(&a_stack, argc);
-	free(a_stack);
-	free(b_stack);
-	return (0);
+	// print_stack(&a_stack, argc);
+	clean_exit(&a_stack, &b_stack, 0);
 }
