@@ -6,53 +6,61 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 15:26:21 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/29 16:09:16 by lkonttin         ###   ########.fr       */
+/*   Updated: 2023/12/29 20:10:52 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	invalid_stack(t_elem **stack, int size)
+void	check_validity(t_stacks *stacks)
 {
 	int	i;
 	int	last;
+	int	size;
 
+	size = stacks->max_elems;
 	while (size > 0)
 	{
 		i = size - 1;
-		last = (*stack)[i].value;
+		last = stacks->a[i].value;
 		i--;
 		while (i >= 0)
 		{
-			if ((*stack)[i].value == last)
-				return (1);
+			if (stacks->a[i].value == last)
+			{
+				stacks->error = 1;
+				clean_exit(stacks);
+			}
 			i--;
 		}
 		size--;
 	}
-	return (0);
 }
 
-int	create_stack(t_elem **stack, char **argv, int size)
+void	create_stack(t_stacks *stacks, char **argv, int argc)
 {
 	int	i;
 
-	*stack = (t_elem *)malloc(sizeof(t_elem) * size);
-	if (*stack == NULL)
-		return (1);
+	stacks->max_elems = argc - 1;
+	stacks->error = 0;
+	stacks->a = (t_elem *)malloc(sizeof(t_elem) * stacks->max_elems);
+	stacks->b = (t_elem *)malloc(sizeof(t_elem) * stacks->max_elems);
+	if (stacks->a == NULL || stacks->b == NULL)
+	{
+		stacks->error = 1;
+		clean_exit(stacks);
+	}
 	i = 1;
 	while (argv[i])
 	{
-		(*stack)[i - 1].value = ft_atoi(argv[i]);
-		(*stack)[i - 1].rank = -1;
+		stacks->a[i - 1].value = ft_atoi(argv[i]);
+		stacks->a[i - 1].rank = -1;
 		i++;
 	}
-	if (invalid_stack(stack, size))
-		return (1);
-	return (0);
+	check_validity(stacks);
 }
 
-void	rank_values(t_elem **stack, int size)
+void	rank_values(t_stacks *stacks)
 {
 	int	i;
 	int	rank;
@@ -60,33 +68,33 @@ void	rank_values(t_elem **stack, int size)
 	int	min_loc;
 
 	rank = 0;
-	while (rank < size)
+	while (rank < stacks->max_elems)
 	{
 		min = INT_MAX;
 		i = 0;
-		while(i < size)
+		while(i < stacks->max_elems)
 		{
-			if ((*stack)[i].value <= min && (*stack)[i].rank < 0)
+			if (stacks->a[i].value <= min && stacks->a[i].rank < 0)
 			{
-				min = (*stack)[i].value;
+				min = stacks->a[i].value;
 				min_loc = i;
 			}
 			i++;
 		}
-		(*stack)[min_loc].rank = rank;
+		stacks->a[min_loc].rank = rank;
 		rank++;
 	}
 }
 
-void	clean_exit(t_elem **a_stack, t_elem **b_stack, int err)
+void	clean_exit(t_stacks *stacks)
 {
-	if (*a_stack)
-		free(*a_stack);
-	if (*b_stack)
-		free(*b_stack);
-	if (err)
+	if (stacks->a)
+		free(stacks->a);
+	if (stacks->b)
+		free(stacks->b);
+	if (stacks->error)
 	{
-		printf("Error\n");
+		print_out("Error");
 		exit(1);
 	}
 	exit(0);
@@ -94,18 +102,11 @@ void	clean_exit(t_elem **a_stack, t_elem **b_stack, int err)
 
 int	main(int argc, char **argv)
 {
-	t_elem	*a_stack;
-	t_elem	*b_stack;
-	int		err;
+	t_stacks	stacks;
 
-	err = 0;
-	argc = argc - 1;
-	err = create_stack(&a_stack, argv, argc);
-	err = create_stack(&b_stack, argv, argc);
-	if (err)
-		clean_exit(&a_stack, &b_stack, 1);
-	rank_values(&a_stack, argc);
-	sort_stack(&a_stack, &b_stack, argc);
-	// print_stack(&a_stack, argc);
-	clean_exit(&a_stack, &b_stack, 0);
+	create_stack(&stacks, argv, argc);
+	rank_values(&stacks);
+	sort_stack(&stacks);
+	print_stack(&stacks);
+	clean_exit(&stacks);
 }

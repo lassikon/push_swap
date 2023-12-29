@@ -6,36 +6,46 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 15:54:59 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/29 16:09:44 by lkonttin         ###   ########.fr       */
+/*   Updated: 2023/12/29 20:09:42 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_stack(t_elem **stack, int size)
+void	print_stack(t_stacks *stacks)
 {
 	int	i;
 	int	rank;
 
 	i = 0;
-	while (i < size)
+	while (i < stacks->max_elems)
 	{
-		printf("a_stack[%d].rank: %d	value: %d\n", i, (*stack)[i].rank, (*stack)[i].value);
+		printf("a_stack[%d].rank: %d	value: %d\n", i, stacks->a[i].rank, stacks->a[i].value);
 		i++;
 	}
 	printf("\n\n");
 	rank = 0;
-	while (rank < size)
+	while (rank < stacks->max_elems)
 	{
 		i = 0;
-		while(i < size)
+		while(i < stacks->max_elems)
 		{
-			if ((*stack)[i].rank == rank)
-				printf("a_stack[%d].rank: %d	value: %d\n", i, (*stack)[i].rank, (*stack)[i].value);
+			if (stacks->a[i].rank == rank)
+				printf("a_stack[%d].rank: %d	value: %d\n", i, stacks->a[i].rank, stacks->a[i].value);
 			i++;
 		}
 		rank++;
 	}
+}
+
+void	print_out(char *str)
+{
+	while(*str)
+	{
+		write(1, str, 1);
+		str++;
+	}
+	write(1, "\n", 1);
 }
 
 static int	max_check(long nbr, long temp, int sign)

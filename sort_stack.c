@@ -6,56 +6,51 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 15:56:47 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/29 16:33:35 by lkonttin         ###   ########.fr       */
+/*   Updated: 2023/12/29 20:05:58 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_operation(char *operation)
+static void	sort_two(t_stacks *stacks)
 {
-	printf("%s\n", operation);
+	if (stacks->a[0].rank != 0)
+		print_out("sa");
 }
 
-static void	sort_two(t_elem **a_stack, int size)
+void	sort_three(t_stacks *stacks)
 {
-	if ((*a_stack)[0].rank != 0)
-		print_operation("sa");
-}
-
-void	sort_three(t_elem **a_stack, int size)
-{
-	if ((*a_stack)[2].rank != 2)
+	if (stacks->a[2].rank != 2)
 	{
-		if ((*a_stack)[0].rank == 2)
+		if (stacks->a[0].rank == 2)
 		{
-			print_operation("ra");
-			if ((*a_stack)[1].rank != 0)
-				print_operation("sa");
+			print_out("ra");
+			if (stacks->a[1].rank != 0)
+				print_out("sa");
 			return ;
 		}
-		if ((*a_stack)[1].rank == 2)
+		if (stacks->a[1].rank == 2)
 		{
-			print_operation("rra");
-			if ((*a_stack)[2].rank != 0)
-				print_operation("sa");
+			print_out("rra");
+			if (stacks->a[2].rank != 0)
+				print_out("sa");
 			return ;
 		}
 	}
-	if ((*a_stack)[0].rank != 0)
-		print_operation("sa");
+	if (stacks->a[0].rank != 0)
+		print_out("sa");
 	return ;
 }
 
-void	sort_stack(t_elem **a_stack, t_elem **b_stack, int size)
+void	sort_stack(t_stacks *stacks)
 {
-	if (size == 2)
+	if (stacks->max_elems == 2)
 	{
-		sort_two(a_stack, size);
+		sort_two(stacks);
 	}
-	else if (size == 3)
+	else if (stacks->max_elems == 3)
 	{
-		sort_three(a_stack, size);
+		sort_three(stacks);
 	}
 	else
 	{
