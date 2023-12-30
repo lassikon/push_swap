@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 13:31:44 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/30 13:35:49 by lkonttin         ###   ########.fr       */
+/*   Updated: 2023/12/30 15:32:30 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,13 @@ void	push_b_array(t_stacks *stacks)
 
 void	push_b(t_stacks *stacks)
 {
+	if (stacks->a_elems < 1)
+		return ;
 	push_b_array(stacks);
 	stacks->b[stacks->b_top] = stacks->a[stacks->a_top];
 	stacks->a[stacks->a_top].rank = -1;
 	stacks->a_top = next_a_elem(stacks);
+	stacks->a_elems--;
+	stacks->b_elems++;
 	ft_putstr_fd("pb\n", 1);
 }

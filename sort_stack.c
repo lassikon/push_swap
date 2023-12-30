@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 15:56:47 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/30 13:44:46 by lkonttin         ###   ########.fr       */
+/*   Updated: 2023/12/30 15:18:34 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ void	sort_stack(t_stacks *stacks)
 	}
 	else
 	{
-		//sort_many
+		big_sort(stacks);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 11:18:33 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/30 13:41:21 by lkonttin         ###   ########.fr       */
+/*   Updated: 2023/12/30 16:54:02 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,8 @@ void	rotate_ab(t_stacks *stacks);
 void	rev_rotate_a(t_stacks *stacks, int rrr);
 void	rev_rotate_b(t_stacks *stacks, int rrr);
 void	rev_rotate_ab(t_stacks *stacks);
+int		next_a_elem(t_stacks *stacks);
+int		next_b_elem(t_stacks *stacks);
+void	big_sort(t_stacks *stacks);
 
 #endif
