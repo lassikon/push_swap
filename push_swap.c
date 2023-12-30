@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 15:26:21 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/30 21:46:19 by lkonttin         ###   ########.fr       */
+/*   Updated: 2023/12/30 22:08:47 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	count_elems(t_stacks *s, char *argv)
 	s->max_elems = count;
 }
 
-void	prep_s(t_stacks *s, int argc, char **argv)
+void	prep_stacks(t_stacks *s, int argc, char **argv)
 {
 	int	i;
 
@@ -146,10 +146,10 @@ int	main(int argc, char **argv)
 
 	if (argc == 1)
 		exit(0);
-	prep_s(&s, argc, argv);
+	prep_stacks(&s, argc, argv);
 	fill_stack_a(&s, argc, argv);
 	rank_values(&s);
 	sort_stack(&s);
-	print_stack(&s);
+	// print_stack(&s);
 	clean_exit(&s);
 }

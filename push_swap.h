@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 11:18:33 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/30 21:50:17 by lkonttin         ###   ########.fr       */
+/*   Updated: 2023/12/30 22:04:52 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ typedef struct	element
 {
 	int	value;
 	int	rank;
-	int	real_index;
 }	t_elem;
 
 typedef struct	stacks
@@ -34,6 +33,7 @@ typedef struct	stacks
 	int		max_elems;
 	int		a_elems;
 	int		b_elems;
+	int		cheapest;
 	int		error;
 }	t_stacks;
 

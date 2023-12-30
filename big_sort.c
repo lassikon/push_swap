@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 15:18:41 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/30 21:24:49 by lkonttin         ###   ########.fr       */
+/*   Updated: 2023/12/30 22:03:24 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,7 @@ static void	push_chunks(t_stacks *s)
 		chunks--;
 	}
 }
-// even number of elems leaves 4 in a_stack if max_elems >= 10
 // max_elems 5 or 7 leaves 2 in a_stack
-//
 void	big_sort(t_stacks *s)
 {
 	push_chunks(s);
