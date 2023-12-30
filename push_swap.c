@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 15:26:21 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/29 23:10:57 by lkonttin         ###   ########.fr       */
+/*   Updated: 2023/12/30 12:00:22 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	clean_exit(t_stacks *stacks)
 		free(stacks->b);
 	if (stacks->error)
 	{
-		print_out("Error");
+		ft_putstr_fd("Error\n", 1);
 		exit(1);
 	}
 	exit(0);
@@ -74,7 +74,7 @@ void	split_string(t_stacks *stacks, char *argv)
 	}
 }
 
-void	create_stack(t_stacks *stacks, int argc, char **argv)
+void	fill_stack_a(t_stacks *stacks, int argc, char **argv)
 {
 	int	i;
 
@@ -87,6 +87,7 @@ void	create_stack(t_stacks *stacks, int argc, char **argv)
 		stacks->a[i - 1].rank = -1;
 		i++;
 	}
+	stacks->a_top = 0;
 	stacks->a_elems = stacks->max_elems;
 	check_validity(stacks);
 }
@@ -112,13 +113,11 @@ void	count_elems(t_stacks *stacks, char *argv)
 	stacks->max_elems = count;
 }
 
-void	init_stack(t_stacks *stacks, int argc, char **argv)
+void	prep_stacks(t_stacks *stacks, int argc, char **argv)
 {
 	int	i;
 
-	if (argc == 1)
-		exit(0);
-	else if (argc == 2)
+	if (argc == 2)
 		count_elems(stacks, argv[1]);
 	else
 		stacks->max_elems = argc - 1;
@@ -143,8 +142,10 @@ int	main(int argc, char **argv)
 {
 	t_stacks	stacks;
 
-	init_stack(&stacks, argc, argv);
-	create_stack(&stacks, argc, argv);
+	if (argc == 1)
+		exit(0);
+	prep_stacks(&stacks, argc, argv);
+	fill_stack_a(&stacks, argc, argv);
 	rank_values(&stacks);
 	sort_stack(&stacks);
 	print_stack(&stacks);

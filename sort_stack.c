@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 15:56:47 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/29 20:05:58 by lkonttin         ###   ########.fr       */
+/*   Updated: 2023/12/30 13:44:46 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	sort_two(t_stacks *stacks)
 {
 	if (stacks->a[0].rank != 0)
-		print_out("sa");
+		swap_a(stacks, 0);
 }
 
 void	sort_three(t_stacks *stacks)
@@ -24,21 +24,21 @@ void	sort_three(t_stacks *stacks)
 	{
 		if (stacks->a[0].rank == 2)
 		{
-			print_out("ra");
+			rotate_a(stacks, 0);
 			if (stacks->a[1].rank != 0)
-				print_out("sa");
+				swap_a(stacks, 0);
 			return ;
 		}
 		if (stacks->a[1].rank == 2)
 		{
-			print_out("rra");
+			rev_rotate_a(stacks, 0);
 			if (stacks->a[2].rank != 0)
-				print_out("sa");
+				swap_a(stacks, 0);
 			return ;
 		}
 	}
 	if (stacks->a[0].rank != 0)
-		print_out("sa");
+		swap_a(stacks, 0);
 	return ;
 }
 

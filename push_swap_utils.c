@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 15:54:59 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/29 23:08:11 by lkonttin         ###   ########.fr       */
+/*   Updated: 2023/12/30 11:31:21 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,13 @@ void	print_stack(t_stacks *stacks)
 	}
 }
 
-void	print_out(char *str)
+void	ft_putstr_fd(char *s, int fd)
 {
-	while(*str)
+	while (*s)
 	{
-		write(1, str, 1);
-		str++;
+		write(fd, &s, 1);
+		s++;
 	}
-	write(1, "\n", 1);
 }
 
 static int	max_check(long nbr, long temp, int sign)
