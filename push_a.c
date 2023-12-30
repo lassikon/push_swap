@@ -6,56 +6,56 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 12:26:24 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/30 17:05:00 by lkonttin         ###   ########.fr       */
+/*   Updated: 2023/12/30 21:47:34 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	next_empty_a(t_stacks *stacks)
+int	next_empty_a(t_stacks *s)
 {
 	int	i;
 
-	i = stacks->a_top + 1;
-	if (i >= stacks->max_elems)
+	i = s->a_top + 1;
+	if (i >= s->max_elems)
 		i = 0;
-	while (stacks->a[i].rank != -1)
+	while (s->a[i].rank != -1)
 	{
 		i++;
-		if (i >= stacks->max_elems)
+		if (i >= s->max_elems)
 			i = 0;
 	}
 	return (i);
 }
 
-void	push_a_array(t_stacks *stacks)
+void	push_a_array(t_stacks *s)
 {
 	int	i;
 	int	shifts;
 
-	i = next_empty_a(stacks);
-	if (i > stacks->a_top)
-		shifts = i - stacks->a_top;
+	i = next_empty_a(s);
+	if (i > s->a_top)
+		shifts = i - s->a_top;
 	else
-		shifts = stacks->max_elems - stacks->a_top + i;
+		shifts = s->max_elems - s->a_top + i;
 	while(shifts > 0)
 	{
-		stacks->a[i] = stacks->a[i - 1];
+		s->a[i] = s->a[i - 1];
 		i--;
 		shifts--;
 	}
 	return ;
 }
 
-void	push_a(t_stacks *stacks)
+void	push_a(t_stacks *s)
 {
-	if (stacks->b_elems < 1)
+	if (s->b_elems < 1)
 		return ;
-	push_a_array(stacks);
-	stacks->a[stacks->a_top] = stacks->b[stacks->b_top];
-	stacks->b[stacks->b_top].rank = -1;
-	stacks->b_top = next_b_elem(stacks);
-	stacks->b_elems--;
-	stacks->a_elems++;
+	push_a_array(s);
+	s->a[s->a_top] = s->b[s->b_top];
+	s->b[s->b_top].rank = -1;
+	s->b_top = next_b_elem(s);
+	s->b_elems--;
+	s->a_elems++;
 	ft_putstr_fd("pa\n", 1);
 }

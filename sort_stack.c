@@ -6,54 +6,43 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 15:56:47 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/30 15:18:34 by lkonttin         ###   ########.fr       */
+/*   Updated: 2023/12/30 21:43:05 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	sort_two(t_stacks *stacks)
+static void	sort_two(t_stacks *s)
 {
-	if (stacks->a[0].rank != 0)
-		swap_a(stacks, 0);
+	if (s->a[s->a_top].rank != 0)
+		swap_a(s);
 }
 
-void	sort_three(t_stacks *stacks)
+void	sort_three(t_stacks *s)
 {
-	if (stacks->a[2].rank != 2)
-	{
-		if (stacks->a[0].rank == 2)
-		{
-			rotate_a(stacks, 0);
-			if (stacks->a[1].rank != 0)
-				swap_a(stacks, 0);
-			return ;
-		}
-		if (stacks->a[1].rank == 2)
-		{
-			rev_rotate_a(stacks, 0);
-			if (stacks->a[2].rank != 0)
-				swap_a(stacks, 0);
-			return ;
-		}
-	}
-	if (stacks->a[0].rank != 0)
-		swap_a(stacks, 0);
-	return ;
+	int	top;
+	int	middle;
+	int	bottom;
+
+	top = s->a[s->a_top].rank;
+	middle = s->a[next_a_elem(s)].rank;
+	bottom = s->a[prev_a_elem(s)].rank;
+	if (top > bottom && top > middle)
+		rotate_a(s);
+	else if (middle > bottom && middle > top)
+		rev_rotate_a(s);
+	top = s->a[s->a_top].rank;
+	middle = s->a[next_a_elem(s)].rank;
+	if (top > middle)
+		swap_a(s);
 }
 
-void	sort_stack(t_stacks *stacks)
+void	sort_stack(t_stacks *s)
 {
-	if (stacks->max_elems == 2)
-	{
-		sort_two(stacks);
-	}
-	else if (stacks->max_elems == 3)
-	{
-		sort_three(stacks);
-	}
+	if (s->max_elems == 2)
+		sort_two(s);
+	else if (s->max_elems == 3)
+		sort_three(s);
 	else
-	{
-		big_sort(stacks);
-	}
+		big_sort(s);
 }

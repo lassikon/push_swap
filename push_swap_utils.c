@@ -6,69 +6,35 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 15:54:59 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/30 17:29:57 by lkonttin         ###   ########.fr       */
+/*   Updated: 2023/12/30 21:46:41 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	check_validity(t_stacks *stacks)
+void	check_validity(t_stacks *s)
 {
 	int	i;
 	int	last;
 	int	size;
 
-	size = stacks->max_elems;
+	size = s->max_elems;
 	while (size > 0)
 	{
 		i = size - 1;
-		last = stacks->a[i].value;
+		last = s->a[i].value;
 		i--;
 		while (i >= 0)
 		{
-			if (stacks->a[i].value == last)
+			if (s->a[i].value == last)
 			{
-				stacks->error = 1;
-				clean_exit(stacks);
+				s->error = 1;
+				clean_exit(s);
 			}
 			i--;
 		}
 		size--;
 	}
-}
-
-void	print_stack(t_stacks *stacks)
-{
-	int	i;
-	int	rank;
-
-	i = 0;
-	while (i < stacks->max_elems)
-	{
-		printf("a_stack.rank:	%d		value:	%d\n", stacks->a[i].rank, stacks->a[i].value);
-		i++;
-	}
-	printf("\na_elems: %d\n", stacks->a_elems);
-	printf("b_elems: %d\n", stacks->b_elems);
-	printf("max_elems: %d\n\n", stacks->max_elems);
-	i = 0;
-	while (i < stacks->max_elems)
-	{
-		printf("b_stack.rank:	%d		value:	%d\n", stacks->b[i].rank, stacks->b[i].value);
-		i++;
-	}
-/* 	rank = 0;
-	while (rank < stacks->max_elems)
-	{
-		i = 0;
-		while(i < stacks->max_elems)
-		{
-			if (stacks->a[i].rank == rank)
-				printf("a_stack.rank:	%d		value:	%d\n", stacks->a[i].rank, stacks->a[i].value);
-			i++;
-		}
-		rank++;
-	} */
 }
 
 void	ft_putstr_fd(char *s, int fd)

@@ -6,61 +6,59 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 12:21:32 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/30 12:39:33 by lkonttin         ###   ########.fr       */
+/*   Updated: 2023/12/30 21:44:43 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	prev_a_elem(t_stacks *stacks)
+int	prev_a_elem(t_stacks *s)
 {
 	int	i;
 
-	i = stacks->a_top - 1;
+	i = s->a_top - 1;
 	if (i < 0)
-		i = stacks->max_elems - 1;
-	while (stacks->a[i].rank == -1)
+		i = s->max_elems - 1;
+	while (s->a[i].rank == -1)
 	{
 		i--;
 		if (i < 0)
-			i = stacks->max_elems;
+			i = s->max_elems -1;
 	}
 	return (i);
 }
 
-int	prev_b_elem(t_stacks *stacks)
+int	prev_b_elem(t_stacks *s)
 {
 	int	i;
 
-	i = stacks->b_top - 1;
+	i = s->b_top - 1;
 	if (i < 0)
-		i = stacks->max_elems - 1;
-	while (stacks->b[i].rank == -1)
+		i = s->max_elems - 1;
+	while (s->b[i].rank == -1)
 	{
 		i--;
 		if (i < 0)
-			i = stacks->max_elems;
+			i = s->max_elems -1;
 	}
 	return (i);
 }
 
-void	rev_rotate_a(t_stacks *stacks, int rrr)
+void	rev_rotate_a(t_stacks *s)
 {
-	stacks->a_top = prev_a_elem(stacks);
-	if (!rrr)
-		ft_putstr_fd("rra\n", 1);
+	s->a_top = prev_a_elem(s);
+	ft_putstr_fd("rra\n", 1);
 }
 
-void	rev_rotate_b(t_stacks *stacks, int rrr)
+void	rev_rotate_b(t_stacks *s)
 {
-	stacks->b_top = prev_b_elem(stacks);
-	if (!rrr)
-		ft_putstr_fd("rrb\n", 1);
+	s->b_top = prev_b_elem(s);
+	ft_putstr_fd("rrb\n", 1);
 }
 
-void	rev_rotate_ab(t_stacks *stacks)
+void	rev_rotate_ab(t_stacks *s)
 {
-	rev_rotate_a(stacks, 1);
-	rev_rotate_b(stacks, 1);
+	s->a_top = prev_a_elem(s);
+	s->b_top = prev_b_elem(s);
 	ft_putstr_fd("rrr\n", 1);
 }
