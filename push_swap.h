@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 11:18:33 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/30 22:04:52 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/02 16:59:57 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int		next_b_elem(t_stacks *s);
 int		prev_a_elem(t_stacks *s);
 int		prev_b_elem(t_stacks *s);
 void	big_sort(t_stacks *s);
+void	calc_costs(t_stacks *s);
+int		cost_analysis(t_stacks *s, int index);
 
 //DEBUG
 void	print_stack(t_stacks *s);

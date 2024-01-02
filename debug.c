@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 18:58:30 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/30 21:01:44 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/02 11:32:22 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	print_stack(t_stacks *s)
 {
 	int	i;
-	int	rank;
 
 	i = 0;
 	while (i < s->max_elems)
