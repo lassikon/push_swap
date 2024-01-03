@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 11:18:33 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/02 16:59:57 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/03 12:49:32 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct	stacks
 	int		a_elems;
 	int		b_elems;
 	int		cheapest;
+	int		target_rank;
 	int		error;
 }	t_stacks;
 
@@ -58,13 +59,15 @@ void	rotate_ab(t_stacks *s);
 void	rev_rotate_a(t_stacks *s);
 void	rev_rotate_b(t_stacks *s);
 void	rev_rotate_ab(t_stacks *s);
-int		next_a_elem(t_stacks *s);
-int		next_b_elem(t_stacks *s);
-int		prev_a_elem(t_stacks *s);
-int		prev_b_elem(t_stacks *s);
+int		next_a_elem(t_stacks *s, int i);
+int		next_b_elem(t_stacks *s, int i);
+int		prev_a_elem(t_stacks *s, int i);
+int		prev_b_elem(t_stacks *s, int i);
 void	big_sort(t_stacks *s);
 void	calc_costs(t_stacks *s);
 int		cost_analysis(t_stacks *s, int index);
+void	init_costs(t_stacks *s);
+void	find_target(t_stacks *s, int rank);
 
 //DEBUG
 void	print_stack(t_stacks *s);

@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 15:18:41 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/02 17:17:59 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/03 18:25:12 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,23 @@ void	init_costs(t_stacks *s)
 		i++;
 	}
 }
+
+void	find_target(t_stacks *s, int rank)
+{
+	int	i;
+	int	best_match;
+
+	i = 0;
+	best_match = s->max_elems;
+	while (i < s->max_elems)
+	{
+		if (s->a[i].rank > rank && s->a[i].rank < best_match)
+			best_match = s->a[i].rank;
+		i++;
+	}
+	s->target_rank = best_match;
+}
+
 void	find_cheapest(t_stacks *s)
 {
 	int i;
@@ -73,28 +90,61 @@ void	find_cheapest(t_stacks *s)
 	cheapest = 10000;
 	while (i < s->max_elems)
 	{
-		if (s->b[i].value > -1 && s->b[i].value < cheapest)
+		if (s->b[i].rank > -1 && s->b[i].value < cheapest)
 		{
 			index = i;
 			cheapest = s->b[i].value;
 		}
 		i++;
 	}
-	s->cheapest = index;
+	s->cheapest = s->b[index].rank;
 }
-// Need to add target mechanic
-void	push_b_cheapest (t_stacks *s)
+// direction is -1 if reverse rotate both, 1 if rotate both
+// -2 if reverse rotate a & rotate b, 2 if rotate a & reverse rotate b
+void	push_a_cheapest (t_stacks *s)
 {
 	int	direction;
+	int b_top_rank;
 
 	direction = cost_analysis(s, s->cheapest);
-	if (direction = 1)
+	find_target(s, s->b[s->cheapest].rank);
+	if (direction == 1)
 	{
-		while ()
+		while (s->a[s->a_top].rank != s->target_rank && s->b[s->b_top].value != s->cheapest)
+			rotate_ab(s);
+		while (s->a[s->a_top].rank != s->target_rank)
+			rotate_a(s);
+		while (s->b[s->b_top].rank != s->cheapest)
+		{
+			b_top_rank = s->b[s->b_top].rank;
+			rotate_b(s);
+		}
 	}
-
+	else if (direction == -1)
+	{
+		while (s->a[s->a_top].rank != s->target_rank && s->b[s->b_top].value != s->cheapest)
+			rev_rotate_ab(s);
+		while (s->a[s->a_top].rank != s->target_rank)
+			rev_rotate_a(s);
+		while (s->b[s->b_top].rank != s->cheapest)
+			rev_rotate_b(s);
+	}
+	else if (direction == 2)
+	{
+		while (s->a[s->a_top].rank != s->target_rank)
+			rotate_a(s);
+		while (s->b[s->b_top].rank != s->cheapest)
+			rev_rotate_b(s);
+	}
+	else if (direction == -2)
+	{
+		while (s->a[s->a_top].rank != s->target_rank)
+			rev_rotate_a(s);
+		while (s->b[s->b_top].rank != s->cheapest)
+			rotate_b(s);
+	}
+	push_a(s);
 }
-
 
 // max_elems 5 or 7 leaves 2 in a_stack
 void	big_sort(t_stacks *s)
@@ -103,10 +153,11 @@ void	big_sort(t_stacks *s)
 	push_upper_chunks(s);
 	sort_three(s);
 	init_costs(s);
-	while (s->b_elems > 0)
+	while (s->b_elems > 1)
 	{
 		calc_costs(s);
 		find_cheapest(s);
-		push_b_cheapest(s);
+		push_a_cheapest(s);
 	}
+	push_a(s);
 }

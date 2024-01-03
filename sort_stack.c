@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 15:56:47 by lkonttin          #+#    #+#             */
-/*   Updated: 2023/12/30 21:43:05 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/03 12:43:14 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void	sort_three(t_stacks *s)
 	int	bottom;
 
 	top = s->a[s->a_top].rank;
-	middle = s->a[next_a_elem(s)].rank;
-	bottom = s->a[prev_a_elem(s)].rank;
+	middle = s->a[next_a_elem(s, s->a_top)].rank;
+	bottom = s->a[prev_a_elem(s, s->a_top)].rank;
 	if (top > bottom && top > middle)
 		rotate_a(s);
 	else if (middle > bottom && middle > top)
 		rev_rotate_a(s);
 	top = s->a[s->a_top].rank;
-	middle = s->a[next_a_elem(s)].rank;
+	middle = s->a[next_a_elem(s, s->a_top)].rank;
 	if (top > middle)
 		swap_a(s);
 }

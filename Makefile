@@ -20,7 +20,7 @@ NAME = push_swap
 
 # Rule to build the main library
 $(NAME):
-	$(CC) $(CFLAGS) $(SOURCES) -o $(NAME)
+	$(CC) $(CFLAGS) $(SOURCES) -g -o $(NAME)
 
 # Default target, builds the main library
 all: $(NAME)
