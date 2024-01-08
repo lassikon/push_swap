@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 12:21:32 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/03 12:16:17 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/08 13:31:16 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	prev_a_elem(t_stacks *s, int i)
 {
+	if (s->a_elems <= 1)
+		return (i);
 	i--;
 	if (i < 0)
 		i = s->max_elems - 1;
@@ -28,6 +30,8 @@ int	prev_a_elem(t_stacks *s, int i)
 
 int	prev_b_elem(t_stacks *s, int i)
 {
+	if (s->b_elems <= 1)
+		return (i);
 	i--;
 	if (i < 0)
 		i = s->max_elems - 1;

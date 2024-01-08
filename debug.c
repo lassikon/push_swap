@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 18:58:30 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/02 11:32:22 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/08 15:17:52 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	print_stack(t_stacks *s)
 		i++;
 		printf("\n");
 	}
+	printf("\n\n");
 /* 	rank = 0;
 	while (rank < s->max_elems)
 	{
