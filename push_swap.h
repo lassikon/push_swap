@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 11:18:33 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/08 09:36:56 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/09 19:26:23 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ typedef struct	stacks
 	int		error;
 }	t_stacks;
 
-int		ft_atoi(const char *str);
+int		ft_atoi(t_stacks *s, char *str);
 void	prep_stacks(t_stacks *s, int argc, char **argv);
 void	fill_stack_a(t_stacks *s, int argc, char **argv);
 void	split_string(t_stacks *s, char *argv);
 void	check_validity(t_stacks *s);
-void	clean_exit(t_stacks *s);
+void	clean_exit(t_stacks *s, int error);
 void	sort_stack(t_stacks *s);
 void	sort_three(t_stacks *s);
 void	ft_putstr_fd(char *s, int fd);
@@ -68,6 +68,7 @@ void	calc_costs(t_stacks *s);
 int		cost_analysis(t_stacks *s, int index);
 void	init_costs(t_stacks *s);
 void	find_target(t_stacks *s, int rank);
+void	put_smallest_on_top(t_stacks *s);
 
 //DEBUG
 void	print_stack(t_stacks *s);

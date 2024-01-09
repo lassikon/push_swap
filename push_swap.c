@@ -6,21 +6,21 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 15:26:21 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/08 17:01:05 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/09 19:29:22 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	clean_exit(t_stacks *s)
+void	clean_exit(t_stacks *s, int error)
 {
 	if (s->a)
 		free(s->a);
 	if (s->b)
 		free(s->b);
-	if (s->error)
+	if (error)
 	{
-		ft_putstr_fd("Error\n", 1);
+		ft_putstr_fd("Error\n", 2);
 		exit(1);
 	}
 	exit(0);
@@ -60,14 +60,11 @@ void	split_string(t_stacks *s, char *argv)
 	i = 0;
 	while (*argv)
 	{
-		s->a[i].value = ft_atoi(argv);
+		s->a[i].value = ft_atoi(s, argv);
 		while (*argv == '-' || (*argv >= '0' && *argv <= '9'))
 			argv++;
 		if (*argv != '-' && *argv != ' ' && (*argv < '0' && *argv > '9'))
-		{
-			s->error = 1;
-			clean_exit(s);
-		}
+			clean_exit(s, 1);
 		if (*argv == ' ')
 			argv++;
 		i++;
@@ -83,7 +80,7 @@ void	fill_stack_a(t_stacks *s, int argc, char **argv)
 		split_string(s, argv[1]);
 	while (argc != 2 && argv[i])
 	{
-		s->a[i - 1].value = ft_atoi(argv[i]);
+		s->a[i - 1].value = ft_atoi(s, argv[i]);
 		s->a[i - 1].rank = -1;
 		i++;
 	}
@@ -124,10 +121,7 @@ void	prep_stacks(t_stacks *s, int argc, char **argv)
 	s->a = (t_elem *)malloc(sizeof(t_elem) * s->max_elems);
 	s->b = (t_elem *)malloc(sizeof(t_elem) * s->max_elems);
 	if (s->a == NULL || s->b == NULL)
-	{
-		s->error = 1;
-		clean_exit(s);
-	}
+		clean_exit(s, 1);
 	s->b_elems = 0;
 	s->b_top = 0;
 	i = 0;
@@ -151,5 +145,5 @@ int	main(int argc, char **argv)
 	rank_values(&s);
 	sort_stack(&s);
 	// print_stack(&s);
-	clean_exit(&s);
+	clean_exit(&s, 0);
 }

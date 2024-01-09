@@ -1,8 +1,6 @@
-# Define compiler and flags
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-# Define source files for main library
 SOURCES = push_swap.c \
 			push_a.c \
 			push_b.c \
@@ -15,24 +13,18 @@ SOURCES = push_swap.c \
 			calc_costs.c \
 			debug.c
 
-# Define library name
 NAME = push_swap
 
-# Rule to build the main library
 $(NAME):
 	$(CC) $(CFLAGS) $(SOURCES) -g -o $(NAME)
 
-# Default target, builds the main library
 all: $(NAME)
 
-# Rule to clean and rebuild the library
 re: fclean all
 
-# Rule to clean up object files
 clean:
 	rm -f $(NAME)
 
-# Rule to clean up object files AND library
 fclean: clean
 
 # Mark targets that don't correspond to file names

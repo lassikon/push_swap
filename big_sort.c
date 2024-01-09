@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 15:18:41 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/09 12:04:02 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/09 19:59:54 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,32 +26,7 @@ static void	rotate_optimally(t_stacks *s, int chunk_roof, int median)
 		rotate_b(s);
 }
 
-/* static void push_lower_chunks(t_stacks *s)
-{
-	int	chunk_roof;
-
-	chunk_roof = s->max_elems / 2;
-	while (s->b_elems < chunk_roof && s->a_elems > 3)
-	{
-		if (s->a[s->a_top].rank >= 0 && s->a[s->a_top].rank < chunk_roof)
-			push_b(s);
-		rotate_optimally(s, chunk_roof, chunk_roof / 2);
-	}
-}
-static void push_upper_chunks(t_stacks *s)
-{
-	int	chunk_roof;
-
-	chunk_roof = s->max_elems - 1;
-	while (s->b_elems < chunk_roof && s->a_elems > 3)
-	{
-		if (s->a[s->a_top].rank >= 0 && s->a[s->a_top].rank < chunk_roof)
-			push_b(s);
-		rotate_optimally(s, chunk_roof, (chunk_roof / 4) * 3);
-	}
-} */
-
-static int	chunk_size(t_stacks *s)
+/* static int	chunk_size(t_stacks *s)
 {
 	int	max;
 
@@ -88,28 +63,36 @@ static void	push_chunks(t_stacks *s)
 			max = s->max_elems - 1;
 		median = (max - size / 2);
 	}
-}
+} */
 
-/* static void	dynamic_chunks(t_stacks *s)
+static void	dynamic_chunks(t_stacks *s)
 {
+	int chunk_size;
 	int	max;
 	int	median;
-
-	max = 64;
-	median = 32;
+	int	loops;
+	
+	chunk_size = s->max_elems / 2;
+	max = 0;
+	median = 0;
 	while (s->a_elems > 3)
 	{
-		if (s->a[s->a_top].rank >= 0 && s->a[s->a_top].rank < max)
+		max += chunk_size;
+		if (max >= s->max_elems)
+			max = s->max_elems - 1;
+		median = max - (chunk_size / 2);
+		loops = 0;
+		while (loops < s->a_elems)
 		{
-			push_b(s);
-			max += 1;
-			if (max >= s->max_elems)
-				max = s->max_elems - 1;
-			median += 1;
+			if (s->a[s->a_top].rank >= 0 && s->a[s->a_top].rank < max)
+				push_b(s);
+			rotate_optimally(s, max, median);
+			loops++;
 		}
-		rotate_optimally(s, max, median);
+		if (chunk_size >= 16)
+			chunk_size /= 2;
 	}
-} */
+}
 
 void	init_costs(t_stacks *s)
 {
@@ -230,44 +213,34 @@ void	push_a_cheapest (t_stacks *s)
 	push_a(s);
 }
 
-static void	put_smallest_on_top(t_stacks *s)
+void	put_smallest_on_top(t_stacks *s)
 {
 	int	median;
 	int	i;
 	int	count;
-	int	upper;
 
 	i = s->a_top;
 	median = s->max_elems / 2;
 	count = 0;
-	upper = 0;
-	while (count <= median)
+	while (count < median)
 	{
 		if (s->a[i].rank == 0)
-			upper = 1;
+		{
+			while (s->a[s->a_top].rank != 0)
+				rotate_a(s);
+			return ;
+		}
 		i = next_a_elem(s, i);
 		count++;
 	}
-	// print_stack(s);
-	if (upper)
-	{
-		while (s->a[s->a_top].rank != 0)
-			rotate_a(s);
-	}
-	else
-	{
-		while (s->a[s->a_top].rank != 0)
-			rev_rotate_a(s);
-	}
+	while (s->a[s->a_top].rank != 0)
+		rev_rotate_a(s);
 }
 
-// max_elems 5 or 7 leaves 2 in a_stack
 void	big_sort(t_stacks *s)
 {
-	// push_lower_chunks(s);
-	// push_upper_chunks(s);
-	push_chunks(s);
-	// dynamic_chunks(s);
+	// push_chunks(s);
+	dynamic_chunks(s);
 	sort_three(s);
 	init_costs(s);
 	while (s->b_elems > 0)
@@ -279,5 +252,3 @@ void	big_sort(t_stacks *s)
 	}
 	put_smallest_on_top(s);
 }
-// BREAKS WITH "1666 1396 889 536 1968 953 1612 1108 1255 677 1443 1805 287 1992 1333 1736 1",
-// infinite rrr loop
