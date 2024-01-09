@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 15:18:41 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/08 17:00:59 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/09 12:04:02 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	rotate_optimally(t_stacks *s, int chunk_roof, int median)
 		rotate_b(s);
 }
 
-static void push_lower_chunks(t_stacks *s)
+/* static void push_lower_chunks(t_stacks *s)
 {
 	int	chunk_roof;
 
@@ -49,7 +49,67 @@ static void push_upper_chunks(t_stacks *s)
 			push_b(s);
 		rotate_optimally(s, chunk_roof, (chunk_roof / 4) * 3);
 	}
+} */
+
+static int	chunk_size(t_stacks *s)
+{
+	int	max;
+
+	max = s->max_elems -1;
+	if (max > 256)
+		return (max / 4);
+	else if (max > 128)
+		return (max / 3);
+	else if (max > 64)
+		return (max / 2);
+	else
+		return (max);
 }
+
+static void	push_chunks(t_stacks *s)
+{
+	int	size;
+	int	max;
+	int	median;
+
+	size = chunk_size(s);
+	max = size;
+	median = max / 2;
+	while (s->a_elems > 3)
+	{
+		while (s->b_elems < max)
+		{
+			if (s->a[s->a_top].rank >= 0 && s->a[s->a_top].rank < max)
+				push_b(s);
+			rotate_optimally(s, max, median);
+		}
+		max += size;
+		if (max >= s->max_elems)
+			max = s->max_elems - 1;
+		median = (max - size / 2);
+	}
+}
+
+/* static void	dynamic_chunks(t_stacks *s)
+{
+	int	max;
+	int	median;
+
+	max = 64;
+	median = 32;
+	while (s->a_elems > 3)
+	{
+		if (s->a[s->a_top].rank >= 0 && s->a[s->a_top].rank < max)
+		{
+			push_b(s);
+			max += 1;
+			if (max >= s->max_elems)
+				max = s->max_elems - 1;
+			median += 1;
+		}
+		rotate_optimally(s, max, median);
+	}
+} */
 
 void	init_costs(t_stacks *s)
 {
@@ -132,7 +192,6 @@ static int	find_direction(t_stacks *s)
 void	push_a_cheapest (t_stacks *s)
 {
 	int	direction;
-	int	b_top_rank;
 
 	direction = find_direction(s);
 	find_target(s, s->cheapest);
@@ -143,10 +202,7 @@ void	push_a_cheapest (t_stacks *s)
 		while (s->a[s->a_top].rank != s->target_rank)
 			rotate_a(s);
 		while (s->b[s->b_top].rank != s->cheapest)
-		{
-			b_top_rank = s->b[s->b_top].rank;
 			rotate_b(s);
-		}
 	}
 	else if (direction == -1)
 	{
@@ -208,8 +264,10 @@ static void	put_smallest_on_top(t_stacks *s)
 // max_elems 5 or 7 leaves 2 in a_stack
 void	big_sort(t_stacks *s)
 {
-	push_lower_chunks(s);
-	push_upper_chunks(s);
+	// push_lower_chunks(s);
+	// push_upper_chunks(s);
+	push_chunks(s);
+	// dynamic_chunks(s);
 	sort_three(s);
 	init_costs(s);
 	while (s->b_elems > 0)

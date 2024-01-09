@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 13:03:12 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/08 13:42:00 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/09 12:02:01 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,27 +67,7 @@ static int	calc_rev_a_rotations(t_stacks *s, int target)
 	}
 	return (rotations);
 }
-/* static int	find_min_rotations(int rb, int rrb, int ra, int rra)
-{
-	int	cost;
-	int	next_cost;
 
-	cost = rb - ra;
-	if (cost < 0)
-		cost = -cost;
-	next_cost = rrb - rra;
-	if (next_cost < 0)
-		next_cost = -next_cost;
-	if (next_cost < cost)
-		cost = next_cost;
-	next_cost = rb + rra;
-	if (next_cost < cost)
-		cost = next_cost;
-	next_cost = rrb + ra;
-	if (next_cost < cost)
-		cost = next_cost;
-	return (cost);
-} */
 static int	find_min_rotations(int rb, int rrb, int ra, int rra)
 {
 	int	cost;
@@ -201,7 +181,7 @@ void	calc_costs(t_stacks *s)
 	count = 0;
 	while(count < s->b_elems)
 	{
-		if (s->b[i].rank > s->b_elems - 20)
+		if (s->b[i].rank > s->b_elems - (s->max_elems / 6))
 			(void)cost_analysis(s, i);
 		i = next_b_elem(s, i);
 		count++;
