@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 15:26:21 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/09 19:29:22 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/12 17:18:15 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,15 @@
 void	clean_exit(t_stacks *s, int error)
 {
 	if (s->a)
+	{
+		// s->a = NULL;
 		free(s->a);
+	}
 	if (s->b)
+	{
+		// s->b = NULL;
 		free(s->b);
+	}
 	if (error)
 	{
 		ft_putstr_fd("Error\n", 2);
@@ -138,7 +144,7 @@ int	main(int argc, char **argv)
 {
 	t_stacks	s;
 
-	if (argc == 1)
+	if (argc == 1 || argv[1] == NULL)
 		exit(0);
 	prep_stacks(&s, argc, argv);
 	fill_stack_a(&s, argc, argv);

@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 15:54:59 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/09 19:28:17 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/12 17:39:44 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	check_validity(t_stacks *s)
 	int	size;
 
 	size = s->max_elems;
+	if (size < 2)
+		clean_exit(s, 0);
 	while (size > 0)
 	{
 		i = size - 1;
@@ -65,7 +67,8 @@ int	ft_atoi(t_stacks *s, char *str)
 		nbr = nbr * 10 + *str - '0';
 		str++;
 	}
-	if (nbr > INT_MAX || nbr * sign < INT_MIN)
+	if (nbr * sign > INT_MAX || nbr * sign < INT_MIN || (*str != '\0' && *str != ' '))
 		clean_exit(s, 1);
 	return ((int)nbr * sign);
 }
+//  || (*str != '\0' || *str != ' ')

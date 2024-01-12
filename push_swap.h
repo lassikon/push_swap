@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 11:18:33 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/09 19:26:23 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/12 16:10:08 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct	stacks
 	int		cheapest;
 	int		target_rank;
 	int		error;
+	int		b_highest;
 }	t_stacks;
 
 int		ft_atoi(t_stacks *s, char *str);

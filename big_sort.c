@@ -6,14 +6,14 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 15:18:41 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/09 19:59:54 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/12 16:16:29 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 // Move top of b to the bottom of stack b if it's smaller than median
-static void	rotate_optimally(t_stacks *s, int chunk_roof, int median)
+static int	rotate_optimally(t_stacks *s, int chunk_roof, int median)
 {
 	if (s->a[s->a_top].rank >= chunk_roof )
 	{
@@ -21,9 +21,11 @@ static void	rotate_optimally(t_stacks *s, int chunk_roof, int median)
 			rotate_ab(s);
 		else
 			rotate_a(s);
+		return (1);
 	}
 	else if (s->b[s->b_top].rank > -1 && s->b[s->b_top].rank < median)
 		rotate_b(s);
+	return (0);
 }
 
 /* static int	chunk_size(t_stacks *s)
@@ -81,13 +83,16 @@ static void	dynamic_chunks(t_stacks *s)
 		if (max >= s->max_elems)
 			max = s->max_elems - 1;
 		median = max - (chunk_size / 2);
-		loops = 0;
-		while (loops < s->a_elems)
+		loops = s->a_elems;
+		while (loops > 0 && s->a_elems > 3)
 		{
 			if (s->a[s->a_top].rank >= 0 && s->a[s->a_top].rank < max)
+			{
 				push_b(s);
-			rotate_optimally(s, max, median);
-			loops++;
+				loops--;
+			}
+			if (rotate_optimally(s, max, median))
+				loops--;
 		}
 		if (chunk_size >= 16)
 			chunk_size /= 2;
@@ -237,6 +242,23 @@ void	put_smallest_on_top(t_stacks *s)
 		rev_rotate_a(s);
 }
 
+static void	b_highest(t_stacks *s)
+{
+	int	i;
+	int	count;
+
+	i = s->b_top;
+	count = 0;
+	s->b_highest = 0;
+	while (count < s->b_elems)
+	{
+		if (s->b[i].rank > s->b_highest)
+			s->b_highest = s->b[i].rank;
+		i = next_b_elem(s, i);
+		count++;
+	}
+}
+
 void	big_sort(t_stacks *s)
 {
 	// push_chunks(s);
@@ -245,6 +267,7 @@ void	big_sort(t_stacks *s)
 	init_costs(s);
 	while (s->b_elems > 0)
 	{
+		b_highest(s);
 		calc_costs(s);
 		find_cheapest(s);
 		push_a_cheapest(s);
