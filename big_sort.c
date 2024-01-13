@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 15:18:41 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/12 16:16:29 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/13 13:50:29 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,45 +28,6 @@ static int	rotate_optimally(t_stacks *s, int chunk_roof, int median)
 	return (0);
 }
 
-/* static int	chunk_size(t_stacks *s)
-{
-	int	max;
-
-	max = s->max_elems -1;
-	if (max > 256)
-		return (max / 4);
-	else if (max > 128)
-		return (max / 3);
-	else if (max > 64)
-		return (max / 2);
-	else
-		return (max);
-}
-
-static void	push_chunks(t_stacks *s)
-{
-	int	size;
-	int	max;
-	int	median;
-
-	size = chunk_size(s);
-	max = size;
-	median = max / 2;
-	while (s->a_elems > 3)
-	{
-		while (s->b_elems < max)
-		{
-			if (s->a[s->a_top].rank >= 0 && s->a[s->a_top].rank < max)
-				push_b(s);
-			rotate_optimally(s, max, median);
-		}
-		max += size;
-		if (max >= s->max_elems)
-			max = s->max_elems - 1;
-		median = (max - size / 2);
-	}
-} */
-
 static void	dynamic_chunks(t_stacks *s)
 {
 	int chunk_size;
@@ -75,6 +36,8 @@ static void	dynamic_chunks(t_stacks *s)
 	int	loops;
 	
 	chunk_size = s->max_elems / 2;
+	if (chunk_size < 8)
+		chunk_size = s->max_elems;
 	max = 0;
 	median = 0;
 	while (s->a_elems > 3)

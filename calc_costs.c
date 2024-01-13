@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 13:03:12 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/12 17:07:05 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/13 18:56:35 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,13 +142,17 @@ void	calc_costs(t_stacks *s)
 {
 	int	i;
 	int	count;
+	int	min_rank;
 
 	s->cheapest = -1;
 	i = s->b_top;
 	count = 0;
 	while(count < s->b_elems)
 	{
-		if (s->b[i].rank > s->b_highest - (s->max_elems / 8))
+		min_rank = s->b_highest - (s->max_elems / 8);
+		if (min_rank < 8)
+			min_rank = 8;
+		if (s->b[i].rank > s->b_highest - min_rank)
 			(void)cost_analysis(s, i);
 		i = next_b_elem(s, i);
 		count++;

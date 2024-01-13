@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 15:56:47 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/03 12:43:14 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/13 12:51:18 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,53 @@ void	sort_three(t_stacks *s)
 		swap_a(s);
 }
 
+void	sort_four(t_stacks *s)
+{
+	int	count;
+
+	count = s->max_elems;
+	while (count > 0)
+	{
+		if (s->a[s->a_top].rank == 0)
+			push_b(s);
+		else
+			rotate_a(s);
+		count--;
+	}
+	sort_three(s);
+	push_a(s);
+}
+
+void	sort_five(t_stacks *s)
+{
+	int	count;
+
+	count = s->max_elems;
+	while (count > 0)
+	{
+		if (s->a[s->a_top].rank < 2)
+			push_b(s);
+		else
+			rotate_a(s);
+		count--;
+	}
+	sort_three(s);
+	if (s->b[s->b_top].rank != 1)
+		rotate_b(s);
+	push_a(s);
+	push_a(s);
+}
+
 void	sort_stack(t_stacks *s)
 {
 	if (s->max_elems == 2)
 		sort_two(s);
 	else if (s->max_elems == 3)
 		sort_three(s);
+	else if (s->max_elems == 4)
+		sort_four(s);
+	else if (s->max_elems == 5)
+		sort_five(s);
 	else
 		big_sort(s);
 }

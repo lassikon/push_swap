@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 11:18:33 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/12 16:10:08 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/13 15:58:35 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,12 @@ typedef struct	stacks
 	int		b_highest;
 }	t_stacks;
 
-int		ft_atoi(t_stacks *s, char *str);
-void	prep_stacks(t_stacks *s, int argc, char **argv);
+int		ps_atoi(t_stacks *s, char *str);
+void	count_elems(t_stacks *s, char *argv);
+void	allocate_stacks(t_stacks *s, int argc, char **argv);
 void	fill_stack_a(t_stacks *s, int argc, char **argv);
 void	split_string(t_stacks *s, char *argv);
+void	validate_multi_arg(t_stacks *s, char *str);
 void	check_validity(t_stacks *s);
 void	clean_exit(t_stacks *s, int error);
 void	sort_stack(t_stacks *s);
@@ -70,6 +72,7 @@ int		cost_analysis(t_stacks *s, int index);
 void	init_costs(t_stacks *s);
 void	find_target(t_stacks *s, int rank);
 void	put_smallest_on_top(t_stacks *s);
+void	check_if_already_sorted(t_stacks *s);
 
 //DEBUG
 void	print_stack(t_stacks *s);
