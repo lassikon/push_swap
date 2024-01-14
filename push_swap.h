@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 11:18:33 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/13 15:58:35 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/14 11:41:42 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	init_costs(t_stacks *s);
 void	find_target(t_stacks *s, int rank);
 void	put_smallest_on_top(t_stacks *s);
 void	check_if_already_sorted(t_stacks *s);
+void	b_highest(t_stacks *s);
 
 //DEBUG
 void	print_stack(t_stacks *s);

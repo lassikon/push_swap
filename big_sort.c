@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 15:18:41 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/13 13:50:29 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/14 12:28:01 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ void	put_smallest_on_top(t_stacks *s)
 		rev_rotate_a(s);
 }
 
-static void	b_highest(t_stacks *s)
+void	b_highest(t_stacks *s)
 {
 	int	i;
 	int	count;
@@ -224,17 +224,15 @@ static void	b_highest(t_stacks *s)
 
 void	big_sort(t_stacks *s)
 {
-	// push_chunks(s);
 	dynamic_chunks(s);
 	sort_three(s);
 	init_costs(s);
+	b_highest(s);
 	while (s->b_elems > 0)
 	{
-		b_highest(s);
 		calc_costs(s);
 		find_cheapest(s);
 		push_a_cheapest(s);
-		// print_stack(s);
 	}
 	put_smallest_on_top(s);
 }
