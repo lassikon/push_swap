@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 19:00:01 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/03 12:46:00 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/15 13:38:57 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	swap_a(t_stacks *s)
 {
-	t_elem temp;
+	t_elem	temp;
 
 	if (s->a_elems < 2)
 		return ;
@@ -26,7 +26,7 @@ void	swap_a(t_stacks *s)
 
 void	swap_b(t_stacks *s)
 {
-	t_elem temp;
+	t_elem	temp;
 
 	if (s->b_elems < 2)
 		return ;
@@ -38,7 +38,7 @@ void	swap_b(t_stacks *s)
 
 void	swap_ab(t_stacks *s)
 {
-	t_elem temp;
+	t_elem	temp;
 
 	if (s->a_elems < 2 || s->b_elems < 2)
 		return ;

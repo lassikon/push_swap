@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 12:26:24 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/14 11:59:09 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/15 13:03:13 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	push_a_array(t_stacks *s)
 		shifts = i - s->a_top;
 	else
 		shifts = s->max_elems - s->a_top + i;
-	while(shifts > 0)
+	while (shifts > 0)
 	{
 		if (i > 0)
 		{
@@ -57,8 +57,8 @@ void	push_a_array(t_stacks *s)
 
 void	push_a(t_stacks *s)
 {
-	int i;
-	
+	int	i;
+
 	if (s->b_elems < 1)
 		return ;
 	push_a_array(s);

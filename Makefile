@@ -13,7 +13,9 @@ SOURCES = push_swap.c \
 			init_stacks.c \
 			parsing.c \
 			check_sorted.c \
-			debug.c
+			push_chunks.c \
+			push_a_cheapest.c \
+			analyze_cost.c
 
 NAME = push_swap
 

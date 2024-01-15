@@ -6,25 +6,25 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 11:18:33 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/14 11:41:42 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/15 13:38:36 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <limits.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <limits.h>
 
-typedef struct	element
+typedef struct element
 {
 	int	value;
 	int	rank;
 }	t_elem;
 
-typedef struct	stacks
+typedef struct stacks
 {
 	t_elem	*a;
 	t_elem	*b;
@@ -68,14 +68,15 @@ int		prev_a_elem(t_stacks *s, int i);
 int		prev_b_elem(t_stacks *s, int i);
 void	big_sort(t_stacks *s);
 void	calc_costs(t_stacks *s);
-int		cost_analysis(t_stacks *s, int index);
+int		analyze_cost(t_stacks *s, int index);
 void	init_costs(t_stacks *s);
 void	find_target(t_stacks *s, int rank);
 void	put_smallest_on_top(t_stacks *s);
 void	check_if_already_sorted(t_stacks *s);
 void	b_highest(t_stacks *s);
-
-//DEBUG
-void	print_stack(t_stacks *s);
+void	push_chunks(t_stacks *s);
+void	push_a_cheapest(t_stacks *s);
+int		find_min_rotations(int rb, int rrb, int ra, int rra);
+int		find_direction(int rb, int rrb, int ra, int rra);
 
 #endif
