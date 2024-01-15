@@ -1,6 +1,5 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-LIBFT_DIR = libft
 
 SOURCES = push_swap.c \
 			push_a.c \
@@ -20,11 +19,13 @@ SOURCES = push_swap.c \
 
 NAME = push_swap
 
+LIBFT_DIR = libft
+LIBFT_PATH = $(LIBFT_DIR)/libft.a
 LDFLAGS = -L$(LIBFT_DIR) -lft
 LDLIBS = $(LDFLAGS)
 
 $(NAME): libft
-	$(CC) $(CFLAGS) $(SOURCES) $(LDLIBS) -o $(NAME)
+	$(CC) $(CFLAGS) $(SOURCES) $(LIBFT_PATH) $(LDLIBS) -o $(NAME)
 
 libft:
 	@$(MAKE) -C $(LIBFT_DIR)

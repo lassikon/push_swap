@@ -6,20 +6,20 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 15:26:21 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/15 14:15:19 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/15 16:47:25 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_putstr_fd(char *s, int fd)
+/* void	ft_putstr_fd(char *s, int fd)
 {
 	while (*s)
 	{
 		write(fd, s, 1);
 		s++;
 	}
-}
+} */
 
 void	clean_exit(t_stacks *s, int error)
 {

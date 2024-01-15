@@ -6,15 +6,36 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 15:34:09 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/15 15:55:27 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/15 17:03:20 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
 static void	move(t_stacks *s, char *instruction)
 {
-	return ;
+	if (!ft_strcmp(instruction, "sa\n"))
+		sa(s);
+	else if (!ft_strcmp(instruction, "sb\n"))
+		sb(s);
+	else if (!ft_strcmp(instruction, "ss\n"))
+		ss(s);
+	else if (!ft_strcmp(instruction, "pa\n"))
+		pa(s);
+	else if (!ft_strcmp(instruction, "pb\n"))
+		pb(s);
+	else if (!ft_strcmp(instruction, "ra\n"))
+		ra(s);
+	else if (!ft_strcmp(instruction, "rb\n"))
+		rb(s);
+	else if (!ft_strcmp(instruction, "rr\n"))
+		rr(s);
+	else if (!ft_strcmp(instruction, "rra\n"))
+		rra(s);
+	else if (!ft_strcmp(instruction, "rrb\n"))
+		rrb(s);
+	else if (!ft_strcmp(instruction, "rrr\n"))
+		rrr(s);
 }
 
 int	checker(int argc, char **argv)

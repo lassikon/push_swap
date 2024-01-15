@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 11:18:33 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/15 15:47:51 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/15 17:07:31 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	check_validity(t_stacks *s);
 void	clean_exit(t_stacks *s, int error);
 void	sort_stack(t_stacks *s);
 void	sort_three(t_stacks *s);
-void	ft_putstr_fd(char *s, int fd);
+// void	ft_putstr_fd(char *s, int fd);
 void	rank_values(t_stacks *s);
 void	swap_a(t_stacks *s);
 void	swap_b(t_stacks *s);
