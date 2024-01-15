@@ -1,5 +1,6 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+LIBFT_DIR = libft
 
 SOURCES = push_swap.c \
 			push_a.c \
@@ -19,17 +20,25 @@ SOURCES = push_swap.c \
 
 NAME = push_swap
 
-$(NAME):
-	$(CC) $(CFLAGS) $(SOURCES) -g -o $(NAME)
+LDFLAGS = -L$(LIBFT_DIR) -lft
+LDLIBS = $(LDFLAGS)
+
+$(NAME): libft
+	$(CC) $(CFLAGS) $(SOURCES) $(LDLIBS) -o $(NAME)
+
+libft:
+	@$(MAKE) -C $(LIBFT_DIR)
 
 all: $(NAME)
 
 re: fclean all
 
 clean:
+	@$(MAKE) -C $(LIBFT_DIR) clean
 	rm -f $(NAME)
 
 fclean: clean
+	@$(MAKE) -C $(LIBFT_DIR) fclean
 
 # Mark targets that don't correspond to file names
-.PHONY: all re clean fclean
+.PHONY: all re clean fclean libft
