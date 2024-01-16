@@ -17,26 +17,38 @@ SOURCES = push_swap.c \
 			push_a_cheapest.c \
 			analyze_cost.c
 
+BONUS_DIR = bonus
+
+BONUS_SOURCES = $(BONUS_DIR)/checker.c \
+				$(BONUS_DIR)/checker_push.c \
+				$(BONUS_DIR)/checker_swap.c \
+				$(BONUS_DIR)/checker_rotate.c \
+				$(BONUS_DIR)/checker_rev_rotate.c \
+
 NAME = push_swap
+
+BONUS_NAME = checker
 
 LIBFT_DIR = libft
 LIBFT_PATH = $(LIBFT_DIR)/libft.a
 LDFLAGS = -L$(LIBFT_DIR) -lft
-LDLIBS = $(LDFLAGS)
 
 $(NAME): libft
-	$(CC) $(CFLAGS) $(SOURCES) $(LIBFT_PATH) $(LDLIBS) -o $(NAME)
+	$(CC) $(CFLAGS) $(SOURCES) $(LDFLAGS) -o $(NAME)
 
 libft:
 	@$(MAKE) -C $(LIBFT_DIR)
 
 all: $(NAME)
 
+bonus: $(CC) $(CFLAGS) $(BONUS_SOURCES) -o $(BONUS_NAME)
+
 re: fclean all
 
 clean:
 	@$(MAKE) -C $(LIBFT_DIR) clean
 	rm -f $(NAME)
+	rm -f $(BONUS_NAME)
 
 fclean: clean
 	@$(MAKE) -C $(LIBFT_DIR) fclean

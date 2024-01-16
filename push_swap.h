@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 11:18:33 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/15 17:07:31 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:19:43 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <limits.h>
+# include "libft/include/libft.h"
 
 typedef struct element
 {
