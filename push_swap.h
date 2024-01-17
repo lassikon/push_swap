@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 11:18:33 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/16 12:19:43 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/17 12:40:54 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ typedef struct stacks
 	int		target_rank;
 	int		error;
 	int		b_highest;
+	int		checker;
+	int		stack_valid;
 }	t_stacks;
 
 int		ps_atoi(t_stacks *s, char *str);
@@ -79,5 +81,7 @@ void	push_chunks(t_stacks *s);
 void	push_a_cheapest(t_stacks *s);
 int		find_min_rotations(int rb, int rrb, int ra, int rra);
 int		find_direction(int rb, int rrb, int ra, int rra);
+void	push_a_array(t_stacks *s);
+void	push_b_array(t_stacks *s);
 
 #endif

@@ -6,11 +6,28 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 12:26:24 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/15 13:03:13 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/17 13:05:47 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	b_highest(t_stacks *s)
+{
+	int	i;
+	int	count;
+
+	i = s->b_top;
+	count = 0;
+	s->b_highest = 0;
+	while (count < s->b_elems)
+	{
+		if (s->b[i].rank > s->b_highest)
+			s->b_highest = s->b[i].rank;
+		i = next_b_elem(s, i);
+		count++;
+	}
+}
 
 int	next_empty_a(t_stacks *s)
 {
@@ -61,12 +78,14 @@ void	push_a(t_stacks *s)
 
 	if (s->b_elems < 1)
 		return ;
-	push_a_array(s);
+	if (s->a_elems > 0)
+		push_a_array(s);
 	s->a[s->a_top] = s->b[s->b_top];
 	s->b[s->b_top].rank = -1;
 	s->b_elems--;
 	s->a_elems++;
-	ft_putstr_fd("pa\n", 1);
+	if (!s->checker)
+		ft_putstr_fd("pa\n", 1);
 	if (s->b_elems < 1)
 		return ;
 	i = s->b_top;

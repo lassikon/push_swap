@@ -17,16 +17,18 @@ SOURCES = push_swap.c \
 			push_a_cheapest.c \
 			analyze_cost.c
 
-BONUS_DIR = bonus
+BONUS_SOURCES = checker.c \
+				push_a.c \
+				push_b.c \
+				rotate.c \
+				rev_rotate.c \
+				swap.c \
+				init_stacks.c \
+				parsing.c \
 
-BONUS_SOURCES = $(BONUS_DIR)/checker.c \
-				$(BONUS_DIR)/checker_push.c \
-				$(BONUS_DIR)/checker_swap.c \
-				$(BONUS_DIR)/checker_rotate.c \
-				$(BONUS_DIR)/checker_rev_rotate.c \
 
 NAME = push_swap
-
+HEADER = push_swap.h
 BONUS_NAME = checker
 
 LIBFT_DIR = libft
@@ -36,12 +38,15 @@ LDFLAGS = -L$(LIBFT_DIR) -lft
 $(NAME): libft
 	$(CC) $(CFLAGS) $(SOURCES) $(LDFLAGS) -o $(NAME)
 
+$(BONUS_NAME):
+	$(CC) -g $(CFLAGS) $(BONUS_SOURCES) $(LDFLAGS) -o $(BONUS_NAME)
+
 libft:
 	@$(MAKE) -C $(LIBFT_DIR)
 
 all: $(NAME)
 
-bonus: $(CC) $(CFLAGS) $(BONUS_SOURCES) -o $(BONUS_NAME)
+bonus: $(BONUS_NAME)
 
 re: fclean all
 

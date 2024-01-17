@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 12:58:31 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/15 13:02:03 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/17 12:43:13 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	check_validity(t_stacks *s)
 	int	size;
 
 	size = s->max_elems;
-	if (size < 2)
+	if (size < 2 && !s->checker)
 		clean_exit(s, 0);
 	while (size > 0)
 	{
@@ -98,6 +98,7 @@ void	check_validity(t_stacks *s)
 		}
 		size--;
 	}
+	s->stack_valid = 1;
 }
 
 void	rank_values(t_stacks *s)

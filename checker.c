@@ -6,38 +6,58 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 15:34:09 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/16 14:03:01 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/17 12:42:40 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
+#include "push_swap.h"
+
+void	clean_exit(t_stacks *s, int error)
+{
+	if (s->a)
+	{
+		free(s->a);
+		s->a = NULL;
+	}
+	if (s->b)
+	{
+		free(s->b);
+		s->b = NULL;
+	}
+	if (error)
+	{
+		ft_putstr_fd("Error\n", 2);
+		exit(1);
+	}
+	exit(0);
+}
 
 static void	move(t_stacks *s, char *instruction)
 {
 	if (!ft_strcmp(instruction, "sa\n"))
-		checker_swap_a(s);
+		swap_a(s);
 	else if (!ft_strcmp(instruction, "sb\n"))
-		checker_swap_b(s);
+		swap_b(s);
 	else if (!ft_strcmp(instruction, "ss\n"))
-		checker_swap_ab(s);
+		swap_ab(s);
 	else if (!ft_strcmp(instruction, "pa\n"))
-		checker_push_a(s);
+		push_a(s);
 	else if (!ft_strcmp(instruction, "pb\n"))
-		checker_push_b(s);
+		push_b(s);
 	else if (!ft_strcmp(instruction, "ra\n"))
-		checker_rotate_a(s);
+		rotate_a(s);
 	else if (!ft_strcmp(instruction, "rb\n"))
-		checker_rotate_b(s);
+		rotate_b(s);
 	else if (!ft_strcmp(instruction, "rr\n"))
-		checker_rotate_ab(s);
+		rotate_ab(s);
 	else if (!ft_strcmp(instruction, "rra\n"))
-		checker_rev_rotate_a(s);
+		rev_rotate_a(s);
 	else if (!ft_strcmp(instruction, "rrb\n"))
-		checker_rev_rotate_b(s);
+		rev_rotate_b(s);
 	else if (!ft_strcmp(instruction, "rrr\n"))
-		checker_rev_rotate_ab(s);
+		rev_rotate_ab(s);
 	else
-		clean_exit(s, 1);
+		s->stack_valid = 0;
 }
 
 static int	is_sorted(t_stacks *s)
@@ -65,12 +85,8 @@ static int	is_sorted(t_stacks *s)
 	}
 	return (1);
 }
-
-int	checker(int argc, char **argv)
+static void	init_stacks(t_stacks *s, int argc, char **argv)
 {
-	t_stacks	s;
-	char		*instruction;
-
 	if (argc == 1)
 		exit(0);
 	if (*argv[1] == '\0')
@@ -78,14 +94,25 @@ int	checker(int argc, char **argv)
 		ft_putstr_fd("Error\n", 2);
 		exit(1);
 	}
-	allocate_stacks(&s, argc, argv);
-	fill_stack_a(&s, argc, argv);
-	rank_values(&s);
+	allocate_stacks(s, argc, argv);
+	fill_stack_a(s, argc, argv);
+	rank_values(s);
+}
+
+int	main(int argc, char **argv)
+{
+	t_stacks	s;
+	char		*instruction;
+
+	s.checker = 1;
+	init_stacks(&s, argc, argv);
 	instruction = get_next_line(0);
 	while (instruction)
 	{
 		move(&s, instruction);
 		free(instruction);
+		if (!s.stack_valid)
+			clean_exit(&s, 1);
 		instruction = get_next_line(0);
 	}
 	if (is_sorted(&s) && s.b_elems == 0)
@@ -93,4 +120,5 @@ int	checker(int argc, char **argv)
 	else
 		ft_putstr_fd("KO\n", 1);
 	clean_exit(&s, 0);
+	exit(0);
 }

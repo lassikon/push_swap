@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 15:26:21 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/15 16:47:25 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/17 11:26:27 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	main(int argc, char **argv)
 		ft_putstr_fd("Error\n", 2);
 		exit(1);
 	}
+	s.checker = 0;
 	allocate_stacks(&s, argc, argv);
 	fill_stack_a(&s, argc, argv);
 	rank_values(&s);

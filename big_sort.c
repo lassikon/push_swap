@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 15:18:41 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/15 13:26:18 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/17 11:58:27 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,23 +47,6 @@ void	put_smallest_on_top(t_stacks *s)
 	}
 	while (s->a[s->a_top].rank != 0)
 		rev_rotate_a(s);
-}
-
-void	b_highest(t_stacks *s)
-{
-	int	i;
-	int	count;
-
-	i = s->b_top;
-	count = 0;
-	s->b_highest = 0;
-	while (count < s->b_elems)
-	{
-		if (s->b[i].rank > s->b_highest)
-			s->b_highest = s->b[i].rank;
-		i = next_b_elem(s, i);
-		count++;
-	}
 }
 
 void	find_cheapest(t_stacks *s)

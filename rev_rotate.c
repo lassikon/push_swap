@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 12:21:32 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/08 13:31:16 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/17 11:28:29 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,21 @@ int	prev_b_elem(t_stacks *s, int i)
 void	rev_rotate_a(t_stacks *s)
 {
 	s->a_top = prev_a_elem(s, s->a_top);
-	ft_putstr_fd("rra\n", 1);
+	if (!s->checker)
+		ft_putstr_fd("rra\n", 1);
 }
 
 void	rev_rotate_b(t_stacks *s)
 {
 	s->b_top = prev_b_elem(s, s->b_top);
-	ft_putstr_fd("rrb\n", 1);
+	if (!s->checker)
+		ft_putstr_fd("rrb\n", 1);
 }
 
 void	rev_rotate_ab(t_stacks *s)
 {
 	s->a_top = prev_a_elem(s, s->a_top);
 	s->b_top = prev_b_elem(s, s->b_top);
-	ft_putstr_fd("rrr\n", 1);
+	if (!s->checker)
+		ft_putstr_fd("rrr\n", 1);
 }
