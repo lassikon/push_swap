@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 11:18:33 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/17 12:40:54 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/18 15:26:03 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ typedef struct element
 	int	value;
 	int	rank;
 }	t_elem;
+
+typedef struct rotations
+{
+	int	ra;
+	int	rb;
+	int	rra;
+	int	rrb;
+}	t_rotations;
 
 typedef struct stacks
 {
@@ -52,7 +60,6 @@ void	check_validity(t_stacks *s);
 void	clean_exit(t_stacks *s, int error);
 void	sort_stack(t_stacks *s);
 void	sort_three(t_stacks *s);
-// void	ft_putstr_fd(char *s, int fd);
 void	rank_values(t_stacks *s);
 void	swap_a(t_stacks *s);
 void	swap_b(t_stacks *s);
@@ -79,8 +86,8 @@ void	check_if_already_sorted(t_stacks *s);
 void	b_highest(t_stacks *s);
 void	push_chunks(t_stacks *s);
 void	push_a_cheapest(t_stacks *s);
-int		find_min_rotations(int rb, int rrb, int ra, int rra);
-int		find_direction(int rb, int rrb, int ra, int rra);
+int		find_min_rotations(t_rotations *rotas);
+int		find_direction(t_rotations *rotas);
 void	push_a_array(t_stacks *s);
 void	push_b_array(t_stacks *s);
 

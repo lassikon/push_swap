@@ -32,31 +32,36 @@ HEADER = push_swap.h
 BONUS_NAME = checker
 
 LIBFT_DIR = libft
-LIBFT_PATH = $(LIBFT_DIR)/libft.a
 LDFLAGS = -L$(LIBFT_DIR) -lft
 
-$(NAME): libft
+LIBFT_MARKER = .libft
+
+$(LIBFT_MARKER):
+	@$(MAKE) -C $(LIBFT_DIR) > /dev/null
+	@echo "Built libft"
+	touch $(LIBFT_MARKER) > /dev/null
+
+$(NAME): $(LIBFT_MARKER)
 	$(CC) $(CFLAGS) $(SOURCES) $(LDFLAGS) -o $(NAME)
-
-$(BONUS_NAME):
-	$(CC) -g $(CFLAGS) $(BONUS_SOURCES) $(LDFLAGS) -o $(BONUS_NAME)
-
-libft:
-	@$(MAKE) -C $(LIBFT_DIR)
+	@echo "Built push_swap"
 
 all: $(NAME)
 
-bonus: $(BONUS_NAME)
+bonus: $(LIBFT_MARKER)
+	$(CC) $(CFLAGS) $(BONUS_SOURCES) $(LDFLAGS) -o $(BONUS_NAME)
+	@echo "Built checker"
 
 re: fclean all
 
 clean:
-	@$(MAKE) -C $(LIBFT_DIR) clean
-	rm -f $(NAME)
-	rm -f $(BONUS_NAME)
+	@$(MAKE) -C $(LIBFT_DIR) clean > /dev/null
+	@echo "Removed object files"
 
 fclean: clean
-	@$(MAKE) -C $(LIBFT_DIR) fclean
+	@$(MAKE) -C $(LIBFT_DIR) fclean > /dev/null
+	rm -f $(LIBFT_MARKER)
+	rm -f $(NAME)
+	rm -f $(BONUS_NAME)
+	@echo "Removed executables"
 
-# Mark targets that don't correspond to file names
-.PHONY: all re clean fclean libft
+.PHONY: all re clean fclean bonus

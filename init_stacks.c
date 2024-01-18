@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 12:58:31 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/17 12:43:13 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/18 12:01:28 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	count_elems(t_stacks *s, char *argv)
 	in_word = 0;
 	while (*argv)
 	{
-		if (*argv == ' ')
+		if (*argv == ' ' || (*argv >= 9 && *argv <= 13))
 			in_word = 0;
 		else if (in_word == 0)
 		{
@@ -68,7 +68,6 @@ void	fill_stack_a(t_stacks *s, int argc, char **argv)
 	{
 		validate_multi_arg(s, argv[i]);
 		s->a[i - 1].value = ps_atoi(s, argv[i]);
-		s->a[i - 1].rank = -1;
 		i++;
 	}
 	s->a_top = 0;

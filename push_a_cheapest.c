@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 13:20:13 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/17 11:29:03 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/18 13:51:16 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	rotate_same_direction(t_stacks *s, int direction)
 	int	cheap;
 
 	target = s->target_rank;
-	cheap = s->cheapest;
+	cheap = s->b[s->cheapest].rank;
 	if (direction == 1)
 	{
 		while (s->a[s->a_top].rank != target && s->b[s->b_top].rank != cheap)
@@ -45,14 +45,14 @@ static void	rotate_diff_direction(t_stacks *s, int direction)
 	{
 		while (s->a[s->a_top].rank != s->target_rank)
 			rotate_a(s);
-		while (s->b[s->b_top].rank != s->cheapest)
+		while (s->b[s->b_top].rank != s->b[s->cheapest].rank)
 			rev_rotate_b(s);
 	}
 	else if (direction == -2)
 	{
 		while (s->a[s->a_top].rank != s->target_rank)
 			rev_rotate_a(s);
-		while (s->b[s->b_top].rank != s->cheapest)
+		while (s->b[s->b_top].rank != s->b[s->cheapest].rank)
 			rotate_b(s);
 	}
 }
@@ -73,7 +73,7 @@ void	find_target(t_stacks *s, int rank)
 	s->target_rank = best_match;
 }
 
-static int	find_direction_for_cheapest(t_stacks *s)
+/* static int	find_direction_for_cheapest(t_stacks *s)
 {
 	int	i;
 	int	count;
@@ -90,7 +90,7 @@ static int	find_direction_for_cheapest(t_stacks *s)
 		count++;
 	}
 	return (analyze_cost(s, cheapest_index));
-}
+} */
 
 // direction is -1 if reverse rotate both, 1 if rotate both
 // -2 if reverse rotate a & rotate b, 2 if rotate a & reverse rotate b
@@ -98,8 +98,8 @@ void	push_a_cheapest(t_stacks *s)
 {
 	int	direction;
 
-	direction = find_direction_for_cheapest(s);
-	find_target(s, s->cheapest);
+	direction = analyze_cost(s, s->cheapest);
+	find_target(s, s->b[s->cheapest].rank);
 	if (direction == 1 || direction == -1)
 		rotate_same_direction(s, direction);
 	else if (direction == 2 || direction == -2)

@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 13:31:20 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/15 13:32:10 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/18 15:25:25 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,13 @@ static int	calc_rev_a_rotations(t_stacks *s, int target)
 
 int	analyze_cost(t_stacks *s, int index)
 {
-	int	rb;
-	int	rrb;
-	int	ra;
-	int	rra;
+	t_rotations	rotas;
 
-	rb = calc_b_rotations(s, index);
-	rrb = calc_rev_b_rotations(s, index);
+	rotas.rb = calc_b_rotations(s, index);
+	rotas.rrb = calc_rev_b_rotations(s, index);
 	find_target(s, s->b[index].rank);
-	ra = calc_a_rotations(s, s->target_rank);
-	rra = calc_rev_a_rotations(s, s->target_rank);
-	s->b[index].value = find_min_rotations(rb, rrb, ra, rra);
-	return (find_direction(rb, rrb, ra, rra));
+	rotas.ra = calc_a_rotations(s, s->target_rank);
+	rotas.rra = calc_rev_a_rotations(s, s->target_rank);
+	s->b[index].value = find_min_rotations(&rotas);
+	return (find_direction(&rotas));
 }
