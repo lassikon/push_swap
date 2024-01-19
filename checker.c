@@ -6,31 +6,11 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 15:34:09 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/17 12:42:40 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:54:01 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	clean_exit(t_stacks *s, int error)
-{
-	if (s->a)
-	{
-		free(s->a);
-		s->a = NULL;
-	}
-	if (s->b)
-	{
-		free(s->b);
-		s->b = NULL;
-	}
-	if (error)
-	{
-		ft_putstr_fd("Error\n", 2);
-		exit(1);
-	}
-	exit(0);
-}
 
 static void	move(t_stacks *s, char *instruction)
 {

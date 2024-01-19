@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 13:31:44 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/17 13:04:41 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:48:01 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,16 @@ void	push_b_array(t_stacks *s)
 		shifts = s->max_elems - s->b_top + i;
 	while (shifts > 0)
 	{
-		s->b[i] = s->b[i - 1];
-		i--;
+		if (i > 0)
+		{
+			s->b[i] = s->b[i - 1];
+			i--;
+		}
+		else if (i == 0)
+		{
+			s->b[i] = s->b[s->max_elems - 1];
+			i = s->max_elems - 1;
+		}
 		shifts--;
 	}
 }

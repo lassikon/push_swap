@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 12:58:22 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/15 13:03:03 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:53:54 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,24 @@ void	validate_multi_arg(t_stacks *s, char *str)
 		str++;
 	if (*str)
 		clean_exit(s, 1);
+}
+
+void	clean_exit(t_stacks *s, int error)
+{
+	if (s->a)
+	{
+		free(s->a);
+		s->a = NULL;
+	}
+	if (s->b)
+	{
+		free(s->b);
+		s->b = NULL;
+	}
+	if (error)
+	{
+		ft_putstr_fd("Error\n", 2);
+		exit(1);
+	}
+	exit(0);
 }

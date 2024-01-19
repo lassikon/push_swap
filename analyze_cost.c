@@ -6,14 +6,12 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 13:31:20 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/18 15:25:25 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:33:28 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// Return the number of rotations needed to bring i to top
-// positive number = rb, negative = rrb
 static int	calc_b_rotations(t_stacks *s, int i)
 {
 	int	rotations;
