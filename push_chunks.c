@@ -6,13 +6,12 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 13:15:19 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/18 12:23:48 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/18 15:00:06 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// Move top of b to the bottom of stack b if it's smaller than median
 static int	rotate_optimally(t_stacks *s, int max, int median)
 {
 	if (s->a[s->a_top].rank >= max)

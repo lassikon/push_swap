@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 15:34:09 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/19 11:54:01 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:52:45 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static int	is_sorted(t_stacks *s)
 	}
 	return (1);
 }
+
 static void	init_stacks(t_stacks *s, int argc, char **argv)
 {
 	if (argc == 1)

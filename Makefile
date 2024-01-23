@@ -47,7 +47,9 @@ $(NAME): $(LIBFT_MARKER)
 
 all: $(NAME)
 
-bonus: $(LIBFT_MARKER)
+bonus: $(BONUS_NAME)
+
+$(BONUS_NAME): $(LIBFT_MARKER)
 	$(CC) $(CFLAGS) $(BONUS_SOURCES) $(LDFLAGS) -o $(BONUS_NAME)
 	@echo "Built checker"
 

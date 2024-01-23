@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 12:58:31 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/18 12:01:28 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/18 12:01:52 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,17 @@ void	allocate_stacks(t_stacks *s, int argc, char **argv)
 void	count_elems(t_stacks *s, char *argv)
 {
 	int	count;
-	int	in_word;
+	int	in_number;
 
 	count = 0;
-	in_word = 0;
+	in_number = 0;
 	while (*argv)
 	{
 		if (*argv == ' ' || (*argv >= 9 && *argv <= 13))
-			in_word = 0;
-		else if (in_word == 0)
+			in_number = 0;
+		else if (in_number == 0)
 		{
-			in_word = 1;
+			in_number = 1;
 			count++;
 		}
 		argv++;

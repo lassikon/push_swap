@@ -6,7 +6,7 @@
 /*   By: lkonttin <lkonttin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 13:20:13 by lkonttin          #+#    #+#             */
-/*   Updated: 2024/01/18 13:51:16 by lkonttin         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:35:18 by lkonttin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,25 +72,6 @@ void	find_target(t_stacks *s, int rank)
 	}
 	s->target_rank = best_match;
 }
-
-/* static int	find_direction_for_cheapest(t_stacks *s)
-{
-	int	i;
-	int	count;
-	int	cheapest_index;
-
-	i = s->b_top;
-	count = 0;
-	cheapest_index = i;
-	while (count <= s->b_elems)
-	{
-		if (s->b[i].rank == s->cheapest)
-			cheapest_index = i;
-		i = next_b_elem(s, i);
-		count++;
-	}
-	return (analyze_cost(s, cheapest_index));
-} */
 
 // direction is -1 if reverse rotate both, 1 if rotate both
 // -2 if reverse rotate a & rotate b, 2 if rotate a & reverse rotate b
